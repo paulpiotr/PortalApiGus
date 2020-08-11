@@ -1,15 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;netstandard20</TargetFrameworks>
+    <!--<UserSecretsId>caad1b76-018e-4db8-9d49-837162a2c236</UserSecretsId>-->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
@@ -22,11 +28,9 @@
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\PortalApiGusApiRegonDataDatabase.mdf">
+    <ContentWithTargetPath Include="lib\Microsoft.EntityFrameworkCore.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\PortalApiGusApiRegonDataDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+      <TargetPath>Microsoft.EntityFrameworkCore.dll</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
 </Project>
