@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PortalApiGusApiRegonData.Models
+namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
 {
     /// <summary>
     /// Model wyszukiwanie podmiotów Parametry Wyszukiwania

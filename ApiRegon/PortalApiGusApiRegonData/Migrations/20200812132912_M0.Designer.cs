@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalApiGusApiRegonData.Data;
 
 namespace PortalApiGusApiRegonData.Migrations
 {
     [DbContext(typeof(PortalApiGusApiRegonDataDbContext))]
-    partial class PortalApiGusApiRegonDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200812132912_M0")]
+    partial class M0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
