@@ -1,5 +1,7 @@
 {
   "ConnectionStrings": {
     "PortalApiGusApiRegonData": "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)%\\%System.Reflection.Assembly.GetExecutingAssembly().GetName().Name%\\%System.Reflection.Assembly.GetExecutingAssembly().GetName().Name%.mdf; Database=%System.Reflection.Assembly.GetExecutingAssembly().GetName().Name%; MultipleActiveResultSets=true; Integrated Security=True; Trusted_Connection=Yes;"
-  }
+  },
+  "PortalApiGusKey": "b65986a6300044a0b7fb",
+  "PortalApiGusSearchCacheLifetime": 86400
 }

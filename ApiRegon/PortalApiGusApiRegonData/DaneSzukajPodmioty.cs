@@ -1,6 +1,9 @@
-﻿using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using UslugaBIRzewnPublVer11Prod;
 
@@ -13,15 +16,23 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// 
+        /// Klucz Api
+        /// </summary>
+        private static readonly string portalApiGusKey = PortalApiGusApiRegonDataConfiguration.GetValue<string>("PortalApiGusKey");
+        /// <summary>
+        /// Czas życia cache wyszukiwania
+        /// </summary>
+        private static readonly int portalApiGusSearchCacheLifetime = PortalApiGusApiRegonDataConfiguration.GetValue<int>("PortalApiGusSearchCacheLifetime");
+        /// <summary>
+        /// Deserializuj dane
         /// </summary>
         /// <param name="daneSzukajPodmiotyResult"></param>
         /// <returns></returns>
-        private static DaneSzukajPodmiotyList DeserializeXmlAsDaneSzukajPodmiotyList(string daneSzukajPodmiotyResult)
+        private static List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> DeserializeXmlAsDaneSzukajPodmiotyList(string daneSzukajPodmiotyResult)
         {
             try
             {
-                return UslugaBIRzewnPubl.DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResult);
+                return UslugaBIRzewnPubl.DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResult).Dane;
             }
             catch (Exception e)
             {
@@ -57,29 +68,89 @@ namespace PortalApiGusApiRegonData
         /// <param name="regon"></param>
         /// <param name="regony14zn"></param>
         /// <param name="regony9zn"></param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsync(string pKluczUzytkownika, string krs = null, string krsy = null, string nip = null, string nipy = null, string regon = null, string regony14zn = null, string regony9zn = null)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsync(string pKluczUzytkownika, string krs = null, string krsy = null, string nip = null, string nipy = null, string regon = null, string regony14zn = null, string regony9zn = null)
         {
             try
             {
+                ParametryWyszukiwania parametryWyszukiwania = new ParametryWyszukiwania()
+                {
+                    Krs = krs,
+                    Krsy = krsy,
+                    Nip = nip,
+                    Nipy = nipy,
+                    Regon = regon,
+                    Regony14zn = regony14zn,
+                    Regony9zn = regony9zn
+                };
+                try
+                {
+                    using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                    {
+                        if (context.Database.CanConnect())
+                        {
+                            List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
+                               w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
+                               && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)portalApiGusSearchCacheLifetime * -1)
+                                ).ToList();
+                            if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
+                            {
+                                _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                                return daneSzukajPodmiotyList;
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                }
                 UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
                 try
                 {
-                    ParametryWyszukiwania parametryWyszukiwania = new ParametryWyszukiwania()
-                    {
-                        Krs = krs,
-                        Krsy = krsy,
-                        Nip = nip,
-                        Nipy = nipy,
-                        Regon = regon,
-                        Regony14zn = regony14zn,
-                        Regony9zn = regony9zn
-                    };
                     DaneSzukajPodmiotyResponse daneSzukajPodmiotyResponse = await uslugaBIRzewnPublClient.DaneSzukajPodmiotyAsync(parametryWyszukiwania);
                     if (null != daneSzukajPodmiotyResponse && null != daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult && !string.IsNullOrWhiteSpace(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult))
                     {
-                        _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
-                        return DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
+                        List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
+                        if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
+                        {
+                            _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                            try
+                            {
+                                using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                                {
+                                    if (context.Database.CanConnect())
+                                    {
+                                        foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
+                                        {
+                                            daneSzukajPodmioty.ParametryWyszukiwaniaSHA512 = Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania);
+                                            daneSzukajPodmioty.ParametryWyszukiwaniaJson = JsonSerializer.Serialize<ParametryWyszukiwania>(parametryWyszukiwania);
+                                            daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
+                                            Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = context.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
+                                            if (null != daneSzukajPodmiotyWhere)
+                                            {
+                                                daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
+                                                context.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
+                                            }
+                                            //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DaneSzukajPodmioty.DaneSzukajPodmioty, Models.DaneSzukajPodmioty.DaneSzukajPodmioty>(); });
+                                            //IMapper iMapper = mapperConfiguration.CreateMapper();
+                                            //daneSzukajPodmiotyWhere = iMapper.Map(daneSzukajPodmioty, daneSzukajPodmiotyWhere);
+                                            if (null != daneSzukajPodmioty)
+                                            {
+                                                context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id == 0 ? EntityState.Added : EntityState.Modified;
+                                                int result = await context.SaveChangesAsync();
+                                                _log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                            }
+                            return daneSzukajPodmiotyList;
+                        }
                     }
                     _log4net.Info(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                     return null;
@@ -108,8 +179,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="krs">krs As string 10 znaków - Identyfikator podmiotu Numer KRS</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByKrs(string pKluczUzytkownika, string krs)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrs(string pKluczUzytkownika, string krs)
         {
             try
             {
@@ -126,8 +197,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="krsy">krsy As string - Ciąg znaków, dziesięcioznakowe identyfikatory KRS, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByKrsy(string pKluczUzytkownika, string krsy)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsy(string pKluczUzytkownika, string krsy)
         {
             try
             {
@@ -144,8 +215,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Nip">Nip As string - Identyfikator podmiotu Nip.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByNip(string pKluczUzytkownika, string nip)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNip(string pKluczUzytkownika, string nip)
         {
             try
             {
@@ -162,8 +233,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Nipy">Nipy As string - Identyfikator podmiotu Nipy. Nipy – ciąg znaków, dziesięcioznakowe identyfikatory NIP, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByNipy(string pKluczUzytkownika, string nipy)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipy(string pKluczUzytkownika, string nipy)
         {
             try
             {
@@ -180,8 +251,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regon">Regon As string - Identyfikator podmiotu Regon.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByRegon(string pKluczUzytkownika, string regon)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegon(string pKluczUzytkownika, string regon)
         {
             try
             {
@@ -198,8 +269,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regony9zn">Regony9zn As string - Identyfikator podmiotu Regony9zn. Regony9zn – ciąg znaków, dziewięcioznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByRegony9zn(string pKluczUzytkownika, string regony9zn)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9zn(string pKluczUzytkownika, string regony9zn)
         {
             try
             {
@@ -216,8 +287,8 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regony14zn">Regony14zn As string - Identyfikator podmiotu Regony14zn. Regony14zn – ciąg znaków, czternastoznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList> DaneSzukajPodmiotyAsyncByRegony14zn(string pKluczUzytkownika, string regony14zn)
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14zn(string pKluczUzytkownika, string regony14zn)
         {
             try
             {

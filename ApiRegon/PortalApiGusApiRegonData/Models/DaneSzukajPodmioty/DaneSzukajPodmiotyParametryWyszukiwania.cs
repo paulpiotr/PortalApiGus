@@ -11,6 +11,8 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(2147483647)]
+        public string SHA512 { get; set; }
         [StringLength(14)]
         public string Regon { get; set; }
         [StringLength(10)]

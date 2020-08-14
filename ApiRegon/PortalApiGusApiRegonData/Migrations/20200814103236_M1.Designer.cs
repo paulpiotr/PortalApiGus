@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalApiGusApiRegonData.Data;
 
 namespace PortalApiGusApiRegonData.Migrations
 {
     [DbContext(typeof(PortalApiGusApiRegonDataDbContext))]
-    partial class PortalApiGusApiRegonDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200814103236_M1")]
+    partial class M1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,15 +28,15 @@ namespace PortalApiGusApiRegonData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DataModyfikacji")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DataZakonczeniaDzialalnosci")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("DataUtworzenia")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DataZakonczeniaDzialalnosci")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<DateTime>("DataModyfikacji")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Gmina")
                         .HasColumnType("nvarchar(200)")
@@ -142,10 +144,6 @@ namespace PortalApiGusApiRegonData.Migrations
                     b.Property<string>("Regony9zn")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
-
-                    b.Property<string>("SHA512")
-                        .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(2147483647);
 
                     b.HasKey("Id");
 

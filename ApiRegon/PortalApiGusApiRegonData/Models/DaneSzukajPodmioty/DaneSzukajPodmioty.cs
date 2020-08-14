@@ -15,6 +15,12 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
         [Key]
         [XmlIgnore]
         public int Id { get; set; }
+        [XmlIgnore]
+        [StringLength(2147483647)]
+        public string ParametryWyszukiwaniaSHA512 { get; set; }
+        [XmlIgnore]
+        [StringLength(2147483647)]
+        public string ParametryWyszukiwaniaJson { get; set; }
         [XmlElement("Regon")]
         [StringLength(14)]
         public string Regon { get; set; }
@@ -62,5 +68,9 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
         [XmlElement("MiejscowoscPoczty")]
         [StringLength(200)]
         public string MiejscowoscPoczty { get; set; }
+        [XmlIgnore]
+        public DateTime DataUtworzenia { get; set; }
+        [XmlIgnore]
+        public DateTime DataModyfikacji { get; set; }
     }
 }

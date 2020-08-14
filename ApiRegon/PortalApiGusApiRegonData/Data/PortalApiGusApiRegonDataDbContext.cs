@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
 using System;
 
 //#nullable disable
@@ -15,8 +14,8 @@ namespace PortalApiGusApiRegonData.Data
             : base(options)
         {
         }
-        public virtual DbSet<DaneSzukajPodmioty> DaneSzukajPodmiotyParametryWyszukiwania { get; set; }
-        public virtual DbSet<DaneSzukajPodmiotyParametryWyszukiwania> DaneSzukajPodmioty { get; set; }
+        public virtual DbSet<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania> DaneSzukajPodmiotyParametryWyszukiwania { get; set; }
+        public virtual DbSet<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> DaneSzukajPodmioty { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

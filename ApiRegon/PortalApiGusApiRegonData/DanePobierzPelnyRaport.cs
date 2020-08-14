@@ -1,5 +1,6 @@
 ﻿using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -63,10 +64,10 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                DaneSzukajPodmiotyList daneSzukajPodmiotyList = await DaneSzukajPodmioty.DaneSzukajPodmiotyAsync(pKluczUzytkownika, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
-                if (null != daneSzukajPodmiotyList && null != daneSzukajPodmiotyList.Dane && daneSzukajPodmiotyList.Dane.Count > 0)
+                List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = await DaneSzukajPodmioty.DaneSzukajPodmiotyAsync(pKluczUzytkownika, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                 {
-                    foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList.Dane)
+                    foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
                     {
                         if (null != daneSzukajPodmioty.Regon && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Regon) && null != daneSzukajPodmioty.Typ && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Typ) && null != daneSzukajPodmioty.SilosID && daneSzukajPodmioty.SilosID > 0)
                         {

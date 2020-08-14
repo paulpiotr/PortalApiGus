@@ -142,7 +142,7 @@ namespace PortalApiGusApiRegonData
             }
         }
         /// <summary>
-        /// Konfiguracja zaszyfrowanego połączenia do bazy danych kontekstu Models.AdvertisingCampaignContext
+        /// Konfiguracja połączenia do bazy danych kontekstu Models.AdvertisingCampaignContext
         /// </summary>
         /// <param name="connectionString"></param>
         /// <returns></returns>
@@ -152,6 +152,25 @@ namespace PortalApiGusApiRegonData
             {
                 DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder<Data.PortalApiGusApiRegonDataDbContext>();
                 dbContextOptionsBuilder.UseSqlServer(connectionString);
+                return (DbContextOptions<Data.PortalApiGusApiRegonDataDbContext>)dbContextOptionsBuilder.Options;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Konfiguracja połączenia do bazy danych kontekstu Models.AdvertisingCampaignContext
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
+        public static DbContextOptions<Data.PortalApiGusApiRegonDataDbContext> GetConnectionOptionsBuilder()
+        {
+            try
+            {
+                DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder<Data.PortalApiGusApiRegonDataDbContext>();
+                dbContextOptionsBuilder.UseSqlServer(GetConnectionString());
                 return (DbContextOptions<Data.PortalApiGusApiRegonDataDbContext>)dbContextOptionsBuilder.Options;
             }
             catch
