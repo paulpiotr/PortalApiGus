@@ -11,6 +11,7 @@ namespace PortalApiGusApiRegonData
         /// log4net
         /// </summary>
         private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Pobierz konfigurację IConfigurationRoot
         /// </summary>
@@ -40,6 +41,7 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
         /// <summary>
         /// Wyszukaj ustawienia aplikacji w pliku appsettings.json lub w pliku {Assembly.GetExecutingAssembly().GetName().Name}
         /// </summary>

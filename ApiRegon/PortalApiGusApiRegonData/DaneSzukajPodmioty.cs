@@ -15,14 +15,17 @@ namespace PortalApiGusApiRegonData
         /// log4net
         /// </summary>
         private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Klucz Api
         /// </summary>
         private static readonly string portalApiGusKey = PortalApiGusApiRegonDataConfiguration.GetValue<string>("PortalApiGusKey");
+
         /// <summary>
         /// Czas życia cache wyszukiwania
         /// </summary>
         private static readonly int portalApiGusSearchCacheLifetime = PortalApiGusApiRegonDataConfiguration.GetValue<int>("PortalApiGusSearchCacheLifetime");
+
         /// <summary>
         /// Deserializuj dane
         /// </summary>
@@ -40,6 +43,7 @@ namespace PortalApiGusApiRegonData
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,6 +61,7 @@ namespace PortalApiGusApiRegonData
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// Wyszukaj podmiot spełniający jedno z kryteriów krs krsy nip nipy regon regony14zn regony9zn Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -174,6 +179,31 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot spełniający jedno z kryteriów krs krsy nip nipy regon regony14zn regony9zn Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="krs"></param>
+        /// <param name="krsy"></param>
+        /// <param name="nip"></param>
+        /// <param name="nipy"></param>
+        /// <param name="regon"></param>
+        /// <param name="regony14zn"></param>
+        /// <param name="regony9zn"></param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsync(string krs = null, string krsy = null, string nip = null, string nipy = null, string regon = null, string regony14zn = null, string regony9zn = null)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(PortalApiGusApiRegonDataConfiguration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po krs. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -192,6 +222,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po krs. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="krs">krs As string 10 znaków - Identyfikator podmiotu Numer KRS</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrs(string krs)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(krs: krs);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po krsy. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -202,7 +251,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, krsy: krsy);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, krsy: krsy);
             }
             catch (Exception e)
             {
@@ -210,6 +259,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po krsy. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="krsy">krsy As string - Ciąg znaków, dziesięcioznakowe identyfikatory KRS, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsy(string krsy)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(krsy: krsy);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po Nip. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -220,7 +288,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, nip: nip);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, nip: nip);
             }
             catch (Exception e)
             {
@@ -228,6 +296,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po Nip. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="Nip">Nip As string - Identyfikator podmiotu Nip.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNip(string nip)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(nip: nip);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po Nipy. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -238,7 +325,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, nipy: nipy);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, nipy: nipy);
             }
             catch (Exception e)
             {
@@ -246,6 +333,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po Nipy. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="Nipy">Nipy As string - Identyfikator podmiotu Nipy. Nipy – ciąg znaków, dziesięcioznakowe identyfikatory NIP, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipy(string nipy)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(nipy: nipy);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po Regon. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -256,7 +362,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, regon: regon);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, regon: regon);
             }
             catch (Exception e)
             {
@@ -264,6 +370,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po Regon. Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="Regon">Regon As string - Identyfikator podmiotu Regon.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegon(string regon)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(regon: regon);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po Regony9zn. Metoda przeszukuje bazę Regony9zn w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -274,7 +399,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, regony9zn: regony9zn);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, regony9zn: regony9zn);
             }
             catch (Exception e)
             {
@@ -282,6 +407,25 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
+
+        /// <summary>
+        /// Wyszukaj podmiot po Regony9zn. Metoda przeszukuje bazę Regony9zn w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="Regony9zn">Regony9zn As string - Identyfikator podmiotu Regony9zn. Regony9zn – ciąg znaków, dziewięcioznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9zn(string regony9zn)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(regony9zn: regony9zn);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Wyszukaj podmiot po Regony14zn. Metoda przeszukuje bazę Regony14zn w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
@@ -292,7 +436,25 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika, regony14zn: regony14zn);
+                return await DaneSzukajPodmiotyAsync(pKluczUzytkownika: pKluczUzytkownika, regony14zn: regony14zn);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Wyszukaj podmiot po Regony14zn. Metoda przeszukuje bazę Regony14zn w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        /// </summary>
+        /// <param name="Regony14zn">Regony14zn As string - Identyfikator podmiotu Regony14zn. Regony14zn – ciąg znaków, czternastoznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
+        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14zn(string regony14zn)
+        {
+            try
+            {
+                return await DaneSzukajPodmiotyAsync(regony14zn: regony14zn);
             }
             catch (Exception e)
             {

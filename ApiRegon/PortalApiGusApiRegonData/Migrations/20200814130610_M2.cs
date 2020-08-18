@@ -12,7 +12,7 @@ namespace PortalApiGusApiRegonData.Migrations
                 maxLength: 2147483647,
                 nullable: true);
             migrationBuilder.Sql("ALTER TABLE [dbo].[DaneSzukajPodmioty] DROP CONSTRAINT IF EXISTS [DF_DaneSzukajPodmioty_DataUtworzenia]");
-            migrationBuilder.Sql("ALTER TABLE [dbo].[DaneSzukajPodmioty] ADD CONSTRAINT [DF_DaneSzukajPodmioty_DataUtworzenia]  DEFAULT (getdate()) FOR [DataUtworzenia]");
+            migrationBuilder.Sql("ALTER TABLE [dbo].[DaneSzukajPodmioty] ADD CONSTRAINT [DF_DaneSzukajPodmioty_DataUtworzenia] DEFAULT (getdate()) FOR [DataUtworzenia]");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
