@@ -57,6 +57,12 @@
     <None Update="Migrations\AuditCreateTriggerScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Migrations\AuditDropTableScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Migrations\AuditDropTriggerScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PortalApiGusApiRegonData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

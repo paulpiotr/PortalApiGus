@@ -45,10 +45,10 @@ namespace PortalApiGusApiRegonData
         }
 
         /// <summary>
-        /// 
+        /// Ustaw odpowiednie parametry rządania w nagłówku - Ustaw "sid", pIdentyfikatorSesji zwrócony w logowaniu
         /// </summary>
-        /// <param name="pKluczUzytkownika"></param>
-        /// <returns></returns>
+        /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
+        /// <returns>uslugaBIRzewnPublClient As UslugaBIRzewnPublClient lub null jeśli wystąpił błąd</returns>
         private static Task<UslugaBIRzewnPublClient> UslugaBIRzewnPublClientAsync(string pKluczUzytkownika)
         {
             try
@@ -90,18 +90,21 @@ namespace PortalApiGusApiRegonData
                 };
                 try
                 {
-                    using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                    if (portalApiGusSearchCacheLifetime > 0)
                     {
-                        if (context.Database.CanConnect())
+                        using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
                         {
-                            List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
-                               w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
-                               && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)portalApiGusSearchCacheLifetime * -1)
-                                ).ToList();
-                            if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
+                            if (context.Database.CanConnect())
                             {
-                                _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
-                                return daneSzukajPodmiotyList;
+                                List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
+                                   w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
+                                   && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)portalApiGusSearchCacheLifetime * -1)
+                                    ).ToList();
+                                if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
+                                {
+                                    _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                                    return daneSzukajPodmiotyList;
+                                }
                             }
                         }
                     }
@@ -122,19 +125,21 @@ namespace PortalApiGusApiRegonData
                             _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                             try
                             {
-                                using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                                foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
                                 {
-                                    if (context.Database.CanConnect())
+                                    daneSzukajPodmioty.ParametryWyszukiwaniaSHA512 = Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania);
+                                    daneSzukajPodmioty.ParametryWyszukiwaniaJson = JsonSerializer.Serialize<ParametryWyszukiwania>(parametryWyszukiwania);
+                                    daneSzukajPodmioty.DataUtworzenia = DateTime.Now;
+                                    daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
+                                    using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
                                     {
-                                        foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
+                                        if (context.Database.CanConnect())
                                         {
-                                            daneSzukajPodmioty.ParametryWyszukiwaniaSHA512 = Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania);
-                                            daneSzukajPodmioty.ParametryWyszukiwaniaJson = JsonSerializer.Serialize<ParametryWyszukiwania>(parametryWyszukiwania);
-                                            daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
                                             Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = context.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
                                             if (null != daneSzukajPodmiotyWhere)
                                             {
                                                 daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
+                                                daneSzukajPodmioty.DataUtworzenia = daneSzukajPodmiotyWhere.DataUtworzenia;
                                                 context.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
                                             }
                                             //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DaneSzukajPodmioty.DaneSzukajPodmioty, Models.DaneSzukajPodmioty.DaneSzukajPodmioty>(); });

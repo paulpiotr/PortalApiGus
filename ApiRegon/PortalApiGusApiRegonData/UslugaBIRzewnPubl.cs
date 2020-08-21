@@ -98,9 +98,7 @@ namespace PortalApiGusApiRegonData
             }
         }
         /// <summary>
-        /// Ustaw odpowiednie parametry rządania w nagłówku
-        /// Logowanie przy użyciu klucza użytkownika - z parametru
-        /// Ustaw "sid", pIdentyfikatorSesji zwrócony w logowaniu
+        /// Ustaw odpowiednie parametry rządania w nagłówku - Ustaw "sid", pIdentyfikatorSesji zwrócony w logowaniu
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <returns>uslugaBIRzewnPublClient As UslugaBIRzewnPublClient lub null jeśli wystąpił błąd</returns>
