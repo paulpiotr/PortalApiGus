@@ -13,23 +13,43 @@ namespace PortalApiGusApiRegonData
         private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
-        /// Pobierz konfigurację IConfigurationRoot
+        /// Pobierz ścieżkę do pliku konfiguracji 
         /// </summary>
-        /// <returns>IConfigurationRoot</returns>
-        public static IConfigurationRoot GetConfigurationRoot()
+        /// <returns>Ścieżka do pliku konfiguracji AS string</returns>
+        public static string GetAppSettingsPath()
         {
             try
             {
                 string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
                 if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json")))
                 {
-                    IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                    IConfigurationRoot configurationRoot = configurationBuilder.Build();
-                    return configurationRoot;
+                    return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
                 }
                 else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format("{0}.json", assemblyName))))
                 {
-                    IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile(string.Format("{0}.json", assemblyName), optional: true, reloadOnChange: true);
+                    return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format("{0}.json", assemblyName));
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Pobierz objekt konfiguracji ConfigurationRoot
+        /// </summary>
+        /// <returns>configurationRoot AS IConfigurationRoot</returns>
+        public static IConfigurationRoot GetConfigurationRoot()
+        {
+            try
+            {
+                string getAppSettingsPath = GetAppSettingsPath();
+                if (null != getAppSettingsPath && !string.IsNullOrWhiteSpace(getAppSettingsPath))
+                {
+                    IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(getAppSettingsPath)).AddJsonFile(Path.GetFileName(getAppSettingsPath), optional: true, reloadOnChange: true);
                     IConfigurationRoot configurationRoot = configurationBuilder.Build();
                     return configurationRoot;
                 }
@@ -57,6 +77,32 @@ namespace PortalApiGusApiRegonData
             catch (Exception)
             {
                 return (T)Convert.ChangeType(null, typeof(T));
+            }
+        }
+
+        /// <summary>
+        /// Zapisz ustawienia do pliku ustawień
+        /// </summary>
+        /// <param name="key">Klucz AS string</param>
+        /// <param name="value">Wartość AS T</param>
+        /// <param name="appSettingsPath">Ścieżka do pliku AS string</param>
+        public static void SetAppSettingValue<T>(string key, T value, string appSettingsPath = null)
+        {
+            try
+            {
+                if (appSettingsPath == null)
+                {
+                    appSettingsPath = GetAppSettingsPath();
+                }
+                string json = File.ReadAllText(appSettingsPath);
+                dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(json);
+                jsonObj[key] = value;
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(appSettingsPath, output);
+            }
+            catch (Exception e)
+            {
+                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
             }
         }
     }
