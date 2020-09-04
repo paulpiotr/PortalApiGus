@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard20</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
     <!--<UserSecretsId>caad1b76-018e-4db8-9d49-837162a2c236</UserSecretsId>-->
   </PropertyGroup>
 
@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\EncryptDecrypt\EncryptDecrypt\EncryptDecrypt.csproj" />
     <ProjectReference Include="..\..\..\Log4netLogger\Log4netLogger.csproj" />
+    <ProjectReference Include="..\..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

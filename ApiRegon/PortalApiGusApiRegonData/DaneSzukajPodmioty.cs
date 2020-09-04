@@ -39,7 +39,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -57,7 +57,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -92,7 +92,8 @@ namespace PortalApiGusApiRegonData
                 {
                     if (portalApiGusSearchCacheLifetime > 0)
                     {
-                        using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                        //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DataContext.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
                         {
                             if (context.Database.CanConnect())
                             {
@@ -111,7 +112,7 @@ namespace PortalApiGusApiRegonData
                 }
                 catch (Exception e)
                 {
-                    _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                    _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 }
                 UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
                 try
@@ -131,7 +132,8 @@ namespace PortalApiGusApiRegonData
                                     daneSzukajPodmioty.ParametryWyszukiwaniaJson = JsonSerializer.Serialize<ParametryWyszukiwania>(parametryWyszukiwania);
                                     daneSzukajPodmioty.DataUtworzenia = DateTime.Now;
                                     daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
-                                    using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                                    //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
+                                    using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DataContext.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
                                     {
                                         if (context.Database.CanConnect())
                                         {
@@ -157,7 +159,7 @@ namespace PortalApiGusApiRegonData
                             }
                             catch (Exception e)
                             {
-                                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                             }
                             return daneSzukajPodmiotyList;
                         }
@@ -167,7 +169,7 @@ namespace PortalApiGusApiRegonData
                 }
                 catch (Exception e)
                 {
-                    _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                    _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                     return null;
                 }
                 finally
@@ -180,7 +182,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -204,7 +206,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -223,7 +225,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -241,7 +243,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -260,7 +262,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -278,7 +280,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -297,7 +299,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -315,7 +317,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -334,7 +336,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -352,7 +354,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -371,7 +373,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -389,7 +391,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -408,7 +410,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -426,7 +428,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -445,7 +447,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -463,7 +465,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }

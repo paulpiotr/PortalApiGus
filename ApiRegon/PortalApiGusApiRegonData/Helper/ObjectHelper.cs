@@ -33,7 +33,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -69,7 +69,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}, {2}.", Assembly.GetExecutingAssembly().FullName, e.Message, e.StackTrace), e);
+                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
