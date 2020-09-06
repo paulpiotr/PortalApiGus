@@ -19,12 +19,12 @@ namespace PortalApiGusApiRegonData
         /// <summary>
         /// Klucz Api
         /// </summary>
-        private static readonly string portalApiGusKey = PortalApiGusApiRegonDataConfiguration.GetValue<string>("PortalApiGusKey");
+        private static readonly string portalApiGusKey = NetAppCommon.DataConfiguration.GetValue<string>("PortalApiGusKey");
 
         /// <summary>
         /// Czas życia cache wyszukiwania
         /// </summary>
-        private static readonly int portalApiGusSearchCacheLifetime = PortalApiGusApiRegonDataConfiguration.GetValue<int>("PortalApiGusSearchCacheLifetime");
+        private static readonly int portalApiGusSearchCacheLifetime = NetAppCommon.DataConfiguration.GetValue<int>("PortalApiGusSearchCacheLifetime");
 
         /// <summary>
         /// Deserializuj dane
@@ -202,7 +202,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(PortalApiGusApiRegonDataConfiguration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                return await DaneSzukajPodmiotyAsync(NetAppCommon.DataConfiguration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
             }
             catch (Exception e)
             {
