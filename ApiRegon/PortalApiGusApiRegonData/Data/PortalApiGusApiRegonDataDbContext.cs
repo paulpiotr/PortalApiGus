@@ -38,7 +38,7 @@ namespace PortalApiGusApiRegonData.Data
                 if (!optionsBuilder.IsConfigured)
                 {
                     //optionsBuilder.UseSqlServer(PortalApiGusApiRegonDataContext.GetConnectionString());
-                    optionsBuilder.UseSqlServer(NetAppCommon.DataContext.GetConnectionString("PortalApiGusApiRegonDataDbContext"));
+                    optionsBuilder.UseSqlServer(NetAppCommon.DatabaseMssql.GetConnectionString("PortalApiGusApiRegonDataDbContext"));
                 }
             }
             catch (Exception e)

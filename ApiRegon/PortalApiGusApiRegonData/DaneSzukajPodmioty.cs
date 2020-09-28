@@ -19,12 +19,12 @@ namespace PortalApiGusApiRegonData
         /// <summary>
         /// Klucz Api
         /// </summary>
-        private static readonly string portalApiGusKey = NetAppCommon.DataConfiguration.GetValue<string>("PortalApiGusKey");
+        private static readonly string portalApiGusKey = NetAppCommon.Configuration.GetValue<string>("PortalApiGusKey");
 
         /// <summary>
         /// Czas życia cache wyszukiwania
         /// </summary>
-        private static readonly int portalApiGusSearchCacheLifetime = NetAppCommon.DataConfiguration.GetValue<int>("PortalApiGusSearchCacheLifetime");
+        private static readonly int portalApiGusSearchCacheLifetime = NetAppCommon.Configuration.GetValue<int>("PortalApiGusSearchCacheLifetime");
 
         /// <summary>
         /// Deserializuj dane
@@ -93,7 +93,7 @@ namespace PortalApiGusApiRegonData
                     if (portalApiGusSearchCacheLifetime > 0)
                     {
                         //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
-                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DataContext.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
+                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
                         {
                             if (context.Database.CanConnect())
                             {
@@ -133,7 +133,7 @@ namespace PortalApiGusApiRegonData
                                     daneSzukajPodmioty.DataUtworzenia = DateTime.Now;
                                     daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
                                     //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
-                                    using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DataContext.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
+                                    using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
                                     {
                                         if (context.Database.CanConnect())
                                         {
@@ -202,7 +202,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(NetAppCommon.DataConfiguration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                return await DaneSzukajPodmiotyAsync(NetAppCommon.Configuration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
             }
             catch (Exception e)
             {
