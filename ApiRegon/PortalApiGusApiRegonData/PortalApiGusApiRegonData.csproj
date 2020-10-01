@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\EncryptDecrypt\EncryptDecrypt\EncryptDecrypt.csproj" />
     <ProjectReference Include="..\..\..\Log4netLogger\Log4netLogger.csproj" />
     <ProjectReference Include="..\..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
   </ItemGroup>
