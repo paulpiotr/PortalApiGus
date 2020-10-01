@@ -29,7 +29,7 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Logowanie przy użyciu klucza użytkownika - z parametru
         /// </summary>
@@ -56,7 +56,7 @@ namespace PortalApiGusApiRegonData
                 return string.Empty;
             }
         }
-        
+
         /// <summary>
         /// Zakończenie aktywności sesji utworzonej metodą Zaloguj - z właściwości pIdentyfikatorSesji
         /// </summary>
@@ -73,7 +73,7 @@ namespace PortalApiGusApiRegonData
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Zakończenie aktywności sesji utworzonej metodą Zaloguj - z parametru
         /// </summary>
@@ -100,7 +100,7 @@ namespace PortalApiGusApiRegonData
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Ustaw odpowiednie parametry rządania w nagłówku - Ustaw "sid", pIdentyfikatorSesji zwrócony w logowaniu
         /// </summary>
@@ -127,7 +127,7 @@ namespace PortalApiGusApiRegonData
                 return uslugaBIRzewnPublClient;
             }
         }
-        
+
         /// <summary>
         /// Deserjalizuj string xml na listę obiektów Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList<DaneSzukajPodmioty>
         /// </summary>
@@ -152,7 +152,7 @@ namespace PortalApiGusApiRegonData
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Deserialize Xml - Deserializacja ciągu xml do typu T
         /// </summary>
