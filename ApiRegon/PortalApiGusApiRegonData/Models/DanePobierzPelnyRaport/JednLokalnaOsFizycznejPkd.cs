@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
 {
@@ -68,8 +70,6 @@ namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
         [MaxLength(10)]
         public string LokfizSilosSymbol { get; set; }
         #endregion
-
     }
     #endregion
-
 }

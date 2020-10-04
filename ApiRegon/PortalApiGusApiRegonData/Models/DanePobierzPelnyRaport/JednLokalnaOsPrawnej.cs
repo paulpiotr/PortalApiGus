@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
 {
-    #region class JednLokalnaIaPrawnej
+    #region public partial class JednLokalnaOsPrawnej
     /// <summary>
     /// Model danych jednostka lokalna osoby prawnej
     /// Data model local unit of legal entity
@@ -83,19 +85,19 @@ namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
         public string LokprawDataPowstania { get; set; }
         #endregion
 
-        #region public string LokprawDataPowstania { get; set; }
-        /// <summary>
-        /// Data powstania jednostki lokalnej osoby prawnej (string)
-        /// Date of establishment of the local unit of the legal entity (string)
-        /// </summary>
-        [XmlElement("lokpraw_dataPowstania")]
-        [JsonProperty(nameof(LokprawDataPowstania))]
-        [Display(Name = "Data powstania jednostki lokalnej osoby prawnej", Prompt = "Wpisz datę powstania jednostki lokalnej osoby prawnej", Description = "Data powstania jednostki lokalnej osoby prawnej")]
-        [Column("LokprawDataPowstania", TypeName = "varchar(10)")]
-        [StringLength(10)]
-        [MaxLength(10)]
-        public string LokprawDataPowstania { get; set; }
-        #endregion
+        //#region public string LokprawDataPowstania { get; set; }
+        ///// <summary>
+        ///// Data powstania jednostki lokalnej osoby prawnej (string)
+        ///// Date of establishment of the local unit of the legal entity (string)
+        ///// </summary>
+        //[XmlElement("lokpraw_dataPowstania")]
+        //[JsonProperty(nameof(LokprawDataPowstania))]
+        //[Display(Name = "Data powstania jednostki lokalnej osoby prawnej", Prompt = "Wpisz datę powstania jednostki lokalnej osoby prawnej", Description = "Data powstania jednostki lokalnej osoby prawnej")]
+        //[Column("LokprawDataPowstania", TypeName = "varchar(10)")]
+        //[StringLength(10)]
+        //[MaxLength(10)]
+        //public string LokprawDataPowstania { get; set; }
+        //#endregion
 
         #region public string LokprawDataRozpoczeciaDzialalnosci { get; set; }
         /// <summary>
@@ -530,7 +532,6 @@ namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
         [MaxLength(240)]
         public string LokprawRodzajRejestruEwidencjiNazwa { get; set; }
         #endregion
-
     }
     #endregion
 }

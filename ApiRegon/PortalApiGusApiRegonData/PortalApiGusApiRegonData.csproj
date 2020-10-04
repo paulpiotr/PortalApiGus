@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.0;net48</TargetFrameworks>
     <!--<UserSecretsId>caad1b76-018e-4db8-9d49-837162a2c236</UserSecretsId>-->
   </PropertyGroup>
 
