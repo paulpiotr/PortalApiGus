@@ -51,16 +51,10 @@
     <None Update="Migrations\AuditCreateScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Migrations\AuditCreateTableScript.sql">
+    <None Update="portal.api.gus.api.regon.data.appsettings.release.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Migrations\AuditCreateTriggerScript.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Migrations\AuditDropTableScript.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Migrations\AuditDropTriggerScript.sql">
+    <None Update="portal.api.gus.api.regon.data.appsettings.debug.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="PortalApiGusApiRegonData.json">
@@ -80,6 +74,10 @@
     <Compile Update="Connected Services\UslugaBIRzewnPublVer11Prod\Reference.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <Target Name="SetEnvConfig" BeforeTargets="Compile">

@@ -10,29 +10,33 @@ using PortalApiGusApiRegonData.Data;
 namespace PortalApiGusApiRegonData.Migrations
 {
     [DbContext(typeof(PortalApiGusApiRegonDataDbContext))]
-    [Migration("20200814130610_M2")]
-    partial class M2
+    [Migration("20201019000806_2")]
+    partial class _2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PortalApiGusApiRegonData.Models.DaneSzukajPodmioty.DaneSzukajPodmioty", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newsequentialid())");
 
-                    b.Property<DateTime>("DataModyfikacji")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DataModyfikacji")
+                        .HasColumnName("DataModyfikacji")
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("DataUtworzenia")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("DataUtworzenia")
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("DataZakonczeniaDzialalnosci")
                         .HasColumnType("nvarchar(10)")
@@ -101,21 +105,79 @@ namespace PortalApiGusApiRegonData.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<string>("UniqueIdentifierOfTheLoggedInUser")
+                        .HasColumnName("UniqueIdentifierOfTheLoggedInUser")
+                        .HasColumnType("varchar(512)")
+                        .HasMaxLength(512);
+
                     b.Property<string>("Wojewodztwo")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.ToTable("DaneSzukajPodmioty");
+                    b.HasIndex("Gmina")
+                        .HasName("IX_DaneSzukajPodmiotyGmina");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("IX_DaneSzukajPodmiotyId");
+
+                    b.HasIndex("KodPocztowy")
+                        .HasName("IX_DaneSzukajPodmiotyKodPocztowy");
+
+                    b.HasIndex("Miejscowosc")
+                        .HasName("IX_DaneSzukajPodmiotyMiejscowosc");
+
+                    b.HasIndex("MiejscowoscPoczty")
+                        .HasName("IX_DaneSzukajPodmiotySilosMiejscowoscPoczty");
+
+                    b.HasIndex("Nazwa")
+                        .HasName("IX_DaneSzukajPodmiotyNazwa");
+
+                    b.HasIndex("Nip")
+                        .HasName("IX_DaneSzukajPodmiotyNip");
+
+                    b.HasIndex("Powiat")
+                        .HasName("IX_DaneSzukajPodmiotyPowiat");
+
+                    b.HasIndex("Regon")
+                        .HasName("IX_DaneSzukajPodmiotyRegon");
+
+                    b.HasIndex("SilosID")
+                        .HasName("IX_DaneSzukajPodmiotySilosID");
+
+                    b.HasIndex("Typ")
+                        .HasName("IX_DaneSzukajPodmiotyTyp");
+
+                    b.HasIndex("Ulica")
+                        .HasName("IX_DaneSzukajPodmiotyUlica");
+
+                    b.HasIndex("UniqueIdentifierOfTheLoggedInUser")
+                        .HasName("IX_DaneSzukajPodmiotyUniqueIdentifierOfTheLoggedInUser");
+
+                    b.HasIndex("Wojewodztwo")
+                        .HasName("IX_DaneSzukajPodmiotyWojewodztwo");
+
+                    b.ToTable("DaneSzukajPodmioty","pagard");
                 });
 
             modelBuilder.Entity("PortalApiGusApiRegonData.Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newsequentialid())");
+
+                    b.Property<DateTime?>("DataModyfikacji")
+                        .HasColumnName("DataModyfikacji")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DataUtworzenia")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("DataUtworzenia")
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("Krs")
                         .HasColumnType("nvarchar(10)")
@@ -149,9 +211,42 @@ namespace PortalApiGusApiRegonData.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasMaxLength(2147483647);
 
+                    b.Property<string>("UniqueIdentifierOfTheLoggedInUser")
+                        .HasColumnName("UniqueIdentifierOfTheLoggedInUser")
+                        .HasColumnType("varchar(512)")
+                        .HasMaxLength(512);
+
                     b.HasKey("Id");
 
-                    b.ToTable("DaneSzukajPodmiotyParametryWyszukiwania");
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaId");
+
+                    b.HasIndex("Krs")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrs");
+
+                    b.HasIndex("Krsy")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrsy");
+
+                    b.HasIndex("Nip")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNip");
+
+                    b.HasIndex("Nipy")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNipy");
+
+                    b.HasIndex("Regon")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegon");
+
+                    b.HasIndex("Regony14zn")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony14zn");
+
+                    b.HasIndex("Regony9zn")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony9zn");
+
+                    b.HasIndex("UniqueIdentifierOfTheLoggedInUser")
+                        .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaUniqueIdentifierOfTheLoggedInUser");
+
+                    b.ToTable("DaneSzukajPodmiotyParametryWyszukiwania","pagard");
                 });
 #pragma warning restore 612, 618
         }

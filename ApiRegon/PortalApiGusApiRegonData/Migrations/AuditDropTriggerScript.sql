@@ -1,1 +1,0 @@
-﻿DROP TRIGGER [dbo].[Trigger_%TableName%Audit]

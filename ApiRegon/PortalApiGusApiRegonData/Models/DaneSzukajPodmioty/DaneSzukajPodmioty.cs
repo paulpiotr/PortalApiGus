@@ -11,14 +11,34 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
     /// Model danych dla wyszukiwanych podmiotów w raporcie podstawowym
     /// Data model for the searched entities in the basic report
     /// </summary>
-    [Table("DaneSzukajPodmioty")]
+    [Table("DaneSzukajPodmioty", Schema = "pagard")]
     [Serializable, XmlRoot("dane")]
     public partial class DaneSzukajPodmioty
     {
-        [Key]
+        #region public Guid Id { get; set; }
+        /// <summary>
+        /// Guid Id identyfikator, klucz główny
+        /// </summary>
         [XmlIgnore]
+        [Key]
         [JsonProperty(nameof(Id))]
-        public int Id { get; set; }
+        [Display(Name = "Identyfikator", Prompt = "Wpisz identyfikator", Description = "Identyfikator klucz główny")]
+        public Guid Id { get; set; }
+        #endregion
+
+        #region public string UniqueIdentifierOfTheLoggedInUser { get; set; }
+        /// <summary>
+        /// Jednoznaczny identyfikator zalogowanego użytkownika
+        /// Unique identifier of the logged in user
+        /// </summary>
+        [XmlIgnore]
+        [Column("UniqueIdentifierOfTheLoggedInUser", TypeName = "varchar(512)")]
+        [JsonProperty(nameof(UniqueIdentifierOfTheLoggedInUser))]
+        [Display(Name = "Identyfikator zalogowanego użytkownika", Prompt = "Wybierz identyfikator zalogowanego użytkownika", Description = "Identyfikator zalogowanego użytkownika")]
+        [StringLength(512)]
+        //[Required]
+        public string UniqueIdentifierOfTheLoggedInUser { get; set; }
+        #endregion
 
         [XmlIgnore]
         [StringLength(2147483647)]
@@ -109,13 +129,29 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
         [StringLength(200)]
         public string MiejscowoscPoczty { get; set; }
 
+        #region public DateTime DataUtworzenia { get; set; }
+        /// <summary>
+        /// Data utworzenia
+        /// </summary>
         [XmlIgnore]
+        [Column("DataUtworzenia", TypeName = "datetime")]
         [JsonProperty(nameof(DataUtworzenia))]
+        [Display(Name = "Data Utworzenia", Prompt = "Wpisz lub wybierz datę utworzenia", Description = "Data utworzenia")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DataUtworzenia { get; set; }
+        #endregion
 
+        #region public DateTime? DataModyfikacji { get; set; }
+        /// <summary>
+        /// Data modyfikacji
+        /// </summary>
         [XmlIgnore]
+        [Column("DataModyfikacji", TypeName = "datetime")]
         [JsonProperty(nameof(DataModyfikacji))]
-        public DateTime DataModyfikacji { get; set; }
+        [Display(Name = "Data Modyfikacji", Prompt = "Wpisz lub wybierz datę modyfikacji", Description = "Data modyfikacji")]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DataModyfikacji { get; set; }
+        #endregion
     }
     #endregion
 }

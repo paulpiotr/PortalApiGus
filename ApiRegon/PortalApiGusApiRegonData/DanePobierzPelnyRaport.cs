@@ -36,11 +36,11 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika"></param>
         /// <returns></returns>
-        private static Task<UslugaBIRzewnPublClient> UslugaBIRzewnPublClientAsync(string pKluczUzytkownika)
+        private static Task<UslugaBIRzewnPublClient> GetClientAsync(string pKluczUzytkownika)
         {
             try
             {
-                return UslugaBIRzewnPubl.UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
+                return UslugaBIRzewnPubl.GetClientAsync(pKluczUzytkownika);
             }
             catch (Exception e)
             {
@@ -71,7 +71,7 @@ namespace PortalApiGusApiRegonData
                     {
                         if (null != daneSzukajPodmioty.Regon && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Regon) && null != daneSzukajPodmioty.Typ && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Typ) && null != daneSzukajPodmioty.SilosID && daneSzukajPodmioty.SilosID > 0)
                         {
-                            UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
+                            UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await GetClientAsync(pKluczUzytkownika);
                             if (null != uslugaBIRzewnPublClient)
                             {
                                 //1) Dla osób prawnych – należy pobrać raport BIR11OsPrawna.

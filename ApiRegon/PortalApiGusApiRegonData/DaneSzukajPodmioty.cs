@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PortalApiGusApiRegonData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,21 @@ namespace PortalApiGusApiRegonData
 {
     public class DaneSzukajPodmioty
     {
+        # region private static readonly log4net.ILog _log4net
         /// <summary>
-        /// log4net
+        /// Log4net Logger
+        /// Log4net Logger
         /// </summary>
         private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        #endregion
 
+        #region private static readonly AppSettings appSettings
         /// <summary>
-        /// Klucz Api
+        /// Instancja do modelu ustawień jako AppSettings
+        /// Instance to the settings model as AppSettings
         /// </summary>
-        private static readonly string portalApiGusKey = NetAppCommon.Configuration.GetValue<string>("PortalApiGusKey");
-
-        /// <summary>
-        /// Czas życia cache wyszukiwania
-        /// </summary>
-        private static readonly int portalApiGusSearchCacheLifetime = NetAppCommon.Configuration.GetValue<int>("PortalApiGusSearchCacheLifetime");
+        private static readonly AppSettings appSettings = AppSettings.GetInstance();
+        #endregion
 
         /// <summary>
         /// Deserializuj dane
@@ -49,11 +51,11 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <returns>uslugaBIRzewnPublClient As UslugaBIRzewnPublClient lub null jeśli wystąpił błąd</returns>
-        private static Task<UslugaBIRzewnPublClient> UslugaBIRzewnPublClientAsync(string pKluczUzytkownika)
+        private static Task<UslugaBIRzewnPublClient> GetClientAsync(string pKluczUzytkownika)
         {
             try
             {
-                return UslugaBIRzewnPubl.UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
+                return UslugaBIRzewnPubl.GetClientAsync(pKluczUzytkownika);
             }
             catch (Exception e)
             {
@@ -90,7 +92,7 @@ namespace PortalApiGusApiRegonData
                 };
                 try
                 {
-                    if (portalApiGusSearchCacheLifetime > 0)
+                    if (appSettings.CacheLifeTime > 0)
                     {
                         //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
                         using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
@@ -99,7 +101,7 @@ namespace PortalApiGusApiRegonData
                             {
                                 List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
                                    w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
-                                   && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)portalApiGusSearchCacheLifetime * -1)
+                                   && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)appSettings.CacheLifeTime * -1)
                                     ).ToList();
                                 if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                                 {
@@ -114,7 +116,7 @@ namespace PortalApiGusApiRegonData
                 {
                     _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 }
-                UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await UslugaBIRzewnPublClientAsync(pKluczUzytkownika);
+                UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await GetClientAsync(pKluczUzytkownika);
                 try
                 {
                     DaneSzukajPodmiotyResponse daneSzukajPodmiotyResponse = await uslugaBIRzewnPublClient.DaneSzukajPodmiotyAsync(parametryWyszukiwania);
@@ -132,28 +134,36 @@ namespace PortalApiGusApiRegonData
                                     daneSzukajPodmioty.ParametryWyszukiwaniaJson = JsonSerializer.Serialize<ParametryWyszukiwania>(parametryWyszukiwania);
                                     daneSzukajPodmioty.DataUtworzenia = DateTime.Now;
                                     daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
+                                    daneSzukajPodmioty.UniqueIdentifierOfTheLoggedInUser = NetAppCommon.HttpContextAccessor.AppContext.GetCurrentUserIdentityName();
                                     //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
-                                    using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
+                                    try
                                     {
-                                        if (context.Database.CanConnect())
+                                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
                                         {
-                                            Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = context.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
-                                            if (null != daneSzukajPodmiotyWhere)
+                                            if (context.Database.CanConnect())
                                             {
-                                                daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
-                                                daneSzukajPodmioty.DataUtworzenia = daneSzukajPodmiotyWhere.DataUtworzenia;
-                                                context.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
-                                            }
-                                            //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DaneSzukajPodmioty.DaneSzukajPodmioty, Models.DaneSzukajPodmioty.DaneSzukajPodmioty>(); });
-                                            //IMapper iMapper = mapperConfiguration.CreateMapper();
-                                            //daneSzukajPodmiotyWhere = iMapper.Map(daneSzukajPodmioty, daneSzukajPodmiotyWhere);
-                                            if (null != daneSzukajPodmioty)
-                                            {
-                                                context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id == 0 ? EntityState.Added : EntityState.Modified;
-                                                int result = await context.SaveChangesAsync();
-                                                _log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                                Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = context.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
+                                                if (null != daneSzukajPodmiotyWhere)
+                                                {
+                                                    daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
+                                                    //daneSzukajPodmioty.DataUtworzenia = daneSzukajPodmiotyWhere.DataUtworzenia;
+                                                    context.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
+                                                }
+                                                //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DaneSzukajPodmioty.DaneSzukajPodmioty, Models.DaneSzukajPodmioty.DaneSzukajPodmioty>(); });
+                                                //IMapper iMapper = mapperConfiguration.CreateMapper();
+                                                //daneSzukajPodmiotyWhere = iMapper.Map(daneSzukajPodmioty, daneSzukajPodmiotyWhere);
+                                                if (null != daneSzukajPodmioty)
+                                                {
+                                                    context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id != null && "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
+                                                    int result = await context.SaveChangesAsync();
+                                                    _log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                                }
                                             }
                                         }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                                     }
                                 }
                             }
@@ -202,7 +212,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(NetAppCommon.Configuration.GetValue<string>("PortalApiGusKey"), krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                return await DaneSzukajPodmiotyAsync(appSettings.PortalApiGusKey, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
             }
             catch (Exception e)
             {
