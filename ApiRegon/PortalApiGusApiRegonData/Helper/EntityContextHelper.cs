@@ -12,11 +12,11 @@ namespace PortalApiGusApiRegonData.Helper
     /// </summary>
     public class EntityContextHelper
     {
-        #region private static readonly log4net.ILog _log4net
+        #region private static readonly log4net.ILog log4net
         /// <summary>
         /// Log4 Net Logger
         /// </summary>
-        private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         #region public static async Task RunMigrationAsync(IServiceProvider serviceProvider)
@@ -42,7 +42,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}.", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}.", e.Message, e.StackTrace), e);
             }
         }
         #endregion

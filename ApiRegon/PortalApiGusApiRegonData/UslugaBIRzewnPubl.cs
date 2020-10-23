@@ -17,12 +17,12 @@ namespace PortalApiGusApiRegonData
     /// </summary>
     public class UslugaBIRzewnPubl
     {
-        #region private static readonly log4net.ILog _log4net
+        #region private static readonly log4net.ILog log4net
         /// <summary>
         /// Log4net Logger
         /// Log4net Logger
         /// </summary>
-        private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         #region public static async Task<string> ZalogujAsync(string pKluczUzytkownika)
@@ -48,14 +48,14 @@ namespace PortalApiGusApiRegonData
                      ZalogujResponse zalogujResult = await uslugaBIRzewnPublClient.ZalogujAsync(pKluczUzytkownika);
                      if (null != zalogujResult && !string.IsNullOrWhiteSpace(zalogujResult.ZalogujResult))
                      {
-                         _log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, zalogujResult.ZalogujResult));
+                         log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, zalogujResult.ZalogujResult));
                          return zalogujResult.ZalogujResult.ToString();
                      }
-                     _log4net.Debug(string.Format("{0} {1} {2} FAIL", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, zalogujResult.ZalogujResult));
+                     log4net.Debug(string.Format("{0} {1} {2} FAIL", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, zalogujResult.ZalogujResult));
                  }
                  catch (Exception e)
                  {
-                     _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                     log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                  }
                  return string.Empty;
              });
@@ -85,14 +85,14 @@ namespace PortalApiGusApiRegonData
                      WylogujResponse wylogujResponse = await uslugaBIRzewnPublClient.WylogujAsync(pIdentyfikatorSesji);
                      if (null != wylogujResponse && wylogujResponse.WylogujResult)
                      {
-                         _log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, wylogujResponse.WylogujResult));
+                         log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, wylogujResponse.WylogujResult));
                          return true;
                      }
-                     _log4net.Debug(string.Format("{0} {1} {2} FAIL", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, wylogujResponse.WylogujResult));
+                     log4net.Debug(string.Format("{0} {1} {2} FAIL", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, wylogujResponse.WylogujResult));
                  }
                  catch (Exception e)
                  {
-                     _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                     log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                  }
                  return false;
              });
@@ -129,7 +129,7 @@ namespace PortalApiGusApiRegonData
                  }
                  catch (Exception e)
                  {
-                     _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                     log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                  }
                  return uslugaBIRzewnPublClient;
              });
@@ -156,14 +156,14 @@ namespace PortalApiGusApiRegonData
                 Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList daneSzukajPodmiotyList = DeserializeXml<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyList>(xml);
                 if (null != daneSzukajPodmiotyList && null != daneSzukajPodmiotyList.Dane && daneSzukajPodmiotyList.Dane.Count > 0)
                 {
-                    _log4net.Debug(string.Format("{0} {1} count: {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, daneSzukajPodmiotyList.Dane.Count));
+                    log4net.Debug(string.Format("{0} {1} count: {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, daneSzukajPodmiotyList.Dane.Count));
                     return daneSzukajPodmiotyList;
                 }
-                _log4net.Debug(string.Format("{0} {1} empty", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                log4net.Debug(string.Format("{0} {1} empty", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
             }
             return null;
         }
@@ -195,14 +195,14 @@ namespace PortalApiGusApiRegonData
                 T _object = (T)xmlSerializer.Deserialize(xmlReader);
                 if (null != _object)
                 {
-                    _log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, _object));
+                    log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, _object));
                     return _object;
                 }
-                _log4net.Debug(string.Format("{0} {1} empty", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                log4net.Debug(string.Format("{0} {1} empty", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
             }
             return (T)Convert.ChangeType(null, typeof(T));
         }

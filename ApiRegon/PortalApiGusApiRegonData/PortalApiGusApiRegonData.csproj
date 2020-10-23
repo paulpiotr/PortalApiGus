@@ -57,9 +57,6 @@
     <None Update="portal.api.gus.api.regon.data.appsettings.debug.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PortalApiGusApiRegonData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <!--<ContentWithTargetPath Include="lib\Microsoft.EntityFrameworkCore.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>Microsoft.EntityFrameworkCore.dll</TargetPath>

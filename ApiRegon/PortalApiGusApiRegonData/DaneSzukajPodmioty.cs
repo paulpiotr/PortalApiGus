@@ -12,12 +12,12 @@ namespace PortalApiGusApiRegonData
 {
     public class DaneSzukajPodmioty
     {
-        # region private static readonly log4net.ILog _log4net
+        # region private static readonly log4net.ILog log4net
         /// <summary>
         /// Log4net Logger
         /// Log4net Logger
         /// </summary>
-        private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         #region private static readonly AppSettings appSettings
@@ -41,7 +41,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -59,7 +59,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -105,7 +105,7 @@ namespace PortalApiGusApiRegonData
                                     ).ToList();
                                 if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                                 {
-                                    _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                                    log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                                     return daneSzukajPodmiotyList;
                                 }
                             }
@@ -114,7 +114,7 @@ namespace PortalApiGusApiRegonData
                 }
                 catch (Exception e)
                 {
-                    _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                    log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 }
                 UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await GetClientAsync(pKluczUzytkownika);
                 try
@@ -125,7 +125,7 @@ namespace PortalApiGusApiRegonData
                         List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
                         if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                         {
-                            _log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                            log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                             try
                             {
                                 foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
@@ -156,30 +156,30 @@ namespace PortalApiGusApiRegonData
                                                 {
                                                     context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id != null && "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
                                                     int result = await context.SaveChangesAsync();
-                                                    _log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                                    log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
                                                 }
                                             }
                                         }
                                     }
                                     catch (Exception e)
                                     {
-                                        _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                                        log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                                     }
                                 }
                             }
                             catch (Exception e)
                             {
-                                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                             }
                             return daneSzukajPodmiotyList;
                         }
                     }
-                    _log4net.Info(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                    log4net.Info(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                     return null;
                 }
                 catch (Exception e)
                 {
-                    _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                    log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                     return null;
                 }
                 finally
@@ -192,7 +192,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -216,7 +216,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -235,7 +235,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -253,7 +253,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -272,7 +272,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -290,7 +290,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -309,7 +309,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -327,7 +327,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -346,7 +346,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -364,7 +364,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -383,7 +383,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -401,7 +401,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -420,7 +420,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -438,7 +438,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -457,7 +457,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -475,7 +475,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }

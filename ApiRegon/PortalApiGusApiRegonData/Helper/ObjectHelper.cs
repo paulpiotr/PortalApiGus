@@ -10,7 +10,8 @@ namespace PortalApiGusApiRegonData.Helper
         /// <summary>
         /// log4net
         /// </summary>
-        private static readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Konwertuj objekt na string
         /// </summary>
@@ -33,7 +34,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -69,7 +70,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
