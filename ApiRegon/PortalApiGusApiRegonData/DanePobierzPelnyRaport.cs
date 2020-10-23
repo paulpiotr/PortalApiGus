@@ -92,8 +92,8 @@ namespace PortalApiGusApiRegonData
                                     Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList osFizycznaDaneOgolneList = UslugaBIRzewnPubl.DeserializeXml<Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList>(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
                                     if (null != osFizycznaDaneOgolneList && null != osFizycznaDaneOgolneList.Dane && osFizycznaDaneOgolneList.Dane.Count > 0)
                                     {
-                                        log4net.Info(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
-                                        log4net.Info(osFizycznaDaneOgolneList.Dane.FirstOrDefault().Imie1);
+                                        log4net.Debug(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
+                                        log4net.Debug(osFizycznaDaneOgolneList.Dane.FirstOrDefault().Imie1);
                                     }
                                 }
                             }

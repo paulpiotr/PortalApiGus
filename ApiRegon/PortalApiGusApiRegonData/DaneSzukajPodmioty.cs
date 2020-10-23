@@ -105,7 +105,7 @@ namespace PortalApiGusApiRegonData
                                     ).ToList();
                                 if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                                 {
-                                    log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                                    log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                                     return daneSzukajPodmiotyList;
                                 }
                             }
@@ -125,7 +125,7 @@ namespace PortalApiGusApiRegonData
                         List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
                         if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                         {
-                            log4net.Info(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                            log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                             try
                             {
                                 foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
@@ -156,7 +156,7 @@ namespace PortalApiGusApiRegonData
                                                 {
                                                     context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id != null && "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
                                                     int result = await context.SaveChangesAsync();
-                                                    log4net.Info($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                                    log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
                                                 }
                                             }
                                         }
@@ -174,7 +174,7 @@ namespace PortalApiGusApiRegonData
                             return daneSzukajPodmiotyList;
                         }
                     }
-                    log4net.Info(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                    log4net.Debug(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                     return null;
                 }
                 catch (Exception e)
