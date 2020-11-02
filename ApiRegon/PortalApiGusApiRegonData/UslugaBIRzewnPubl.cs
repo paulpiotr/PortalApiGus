@@ -116,6 +116,8 @@ namespace PortalApiGusApiRegonData
             return await Task.Run(async () =>
              {
                  UslugaBIRzewnPublClient uslugaBIRzewnPublClient = new UslugaBIRzewnPublClient();
+                 ///Śledzenie usługi 
+                 ///uslugaBIRzewnPublClient.Endpoint.EndpointBehaviors.Add(new NetAppCommon.Logging.SoapEndpointBehavior());
                  try
                  {
                      string pIdentyfikatorSesji = await ZalogujAsync(pKluczUzytkownika);
