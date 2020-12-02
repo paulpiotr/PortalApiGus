@@ -154,7 +154,7 @@ namespace PortalApiGusApiRegonData
                                                 //daneSzukajPodmiotyWhere = iMapper.Map(daneSzukajPodmioty, daneSzukajPodmiotyWhere);
                                                 if (null != daneSzukajPodmioty)
                                                 {
-                                                    context.Entry(daneSzukajPodmioty).State = daneSzukajPodmioty.Id != null && "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
+                                                    context.Entry(daneSzukajPodmioty).State = "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
                                                     int result = await context.SaveChangesAsync();
                                                     log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
                                                 }
