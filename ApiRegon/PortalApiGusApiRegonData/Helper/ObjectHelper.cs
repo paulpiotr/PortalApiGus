@@ -10,7 +10,7 @@ namespace PortalApiGusApiRegonData.Helper
         /// <summary>
         /// log4net
         /// </summary>
-        private static readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Konwertuj objekt na string
