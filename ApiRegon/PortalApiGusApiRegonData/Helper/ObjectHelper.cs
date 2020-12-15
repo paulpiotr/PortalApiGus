@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,7 +10,7 @@ namespace PortalApiGusApiRegonData.Helper
         /// <summary>
         /// log4net
         /// </summary>
-        private readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Konwertuj objekt na string
@@ -34,7 +34,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -70,7 +70,7 @@ namespace PortalApiGusApiRegonData.Helper
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }

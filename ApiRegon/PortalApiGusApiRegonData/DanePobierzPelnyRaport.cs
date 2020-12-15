@@ -1,4 +1,4 @@
-﻿using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,8 @@ namespace PortalApiGusApiRegonData
         /// <summary>
         /// log4net
         /// </summary>
-        private readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// 
         /// </summary>
@@ -27,7 +28,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -44,7 +45,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -92,8 +93,8 @@ namespace PortalApiGusApiRegonData
                                     Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList osFizycznaDaneOgolneList = UslugaBIRzewnPubl.DeserializeXml<Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList>(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
                                     if (null != osFizycznaDaneOgolneList && null != osFizycznaDaneOgolneList.Dane && osFizycznaDaneOgolneList.Dane.Count > 0)
                                     {
-                                        log4net.Debug(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
-                                        log4net.Debug(osFizycznaDaneOgolneList.Dane.FirstOrDefault().Imie1);
+                                        Log4net.Debug(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
+                                        Log4net.Debug(osFizycznaDaneOgolneList.Dane.FirstOrDefault().Imie1);
                                     }
                                 }
                             }
@@ -104,7 +105,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }

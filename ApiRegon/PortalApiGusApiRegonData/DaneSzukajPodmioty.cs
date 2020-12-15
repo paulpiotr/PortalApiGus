@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PortalApiGusApiRegonData.Models;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace PortalApiGusApiRegonData
         /// Log4net Logger
         /// Log4net Logger
         /// </summary>
-        private readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         #region private static readonly AppSettings appSettings
@@ -41,7 +41,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -59,7 +59,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 throw new NotImplementedException();
             }
         }
@@ -80,7 +80,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                ParametryWyszukiwania parametryWyszukiwania = new ParametryWyszukiwania()
+                var parametryWyszukiwania = new ParametryWyszukiwania()
                 {
                     Krs = krs,
                     Krsy = krsy,
@@ -99,13 +99,13 @@ namespace PortalApiGusApiRegonData
                         {
                             if (context.Database.CanConnect())
                             {
-                                List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
+                                var daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
                                    w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
                                    && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)appSettings.CacheLifeTime * -1)
                                     ).ToList();
                                 if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                                 {
-                                    log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                                    Log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                                     return daneSzukajPodmiotyList;
                                 }
                             }
@@ -114,7 +114,7 @@ namespace PortalApiGusApiRegonData
                 }
                 catch (Exception e)
                 {
-                    log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                    Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 }
                 UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await GetClientAsync(pKluczUzytkownika);
                 try
@@ -125,7 +125,7 @@ namespace PortalApiGusApiRegonData
                         List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
                         if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                         {
-                            log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                            Log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                             try
                             {
                                 foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
@@ -155,31 +155,31 @@ namespace PortalApiGusApiRegonData
                                                 if (null != daneSzukajPodmioty)
                                                 {
                                                     context.Entry(daneSzukajPodmioty).State = "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
-                                                    int result = await context.SaveChangesAsync();
-                                                    log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+                                                    var result = await context.SaveChangesAsync();
+                                                    Log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
                                                 }
                                             }
                                         }
                                     }
                                     catch (Exception e)
                                     {
-                                        log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                                        Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                                     }
                                 }
                             }
                             catch (Exception e)
                             {
-                                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                             }
                             return daneSzukajPodmiotyList;
                         }
                     }
-                    log4net.Debug(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+                    Log4net.Debug(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                     return null;
                 }
                 catch (Exception e)
                 {
-                    log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                    Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                     return null;
                 }
                 finally
@@ -192,7 +192,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -216,7 +216,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -227,7 +227,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="krs">krs As string 10 znaków - Identyfikator podmiotu Numer KRS</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrs(string pKluczUzytkownika, string krs)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsAsync(string pKluczUzytkownika, string krs)
         {
             try
             {
@@ -235,7 +235,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -245,7 +245,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="krs">krs As string 10 znaków - Identyfikator podmiotu Numer KRS</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrs(string krs)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsAsync(string krs)
         {
             try
             {
@@ -253,7 +253,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -264,7 +264,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="krsy">krsy As string - Ciąg znaków, dziesięcioznakowe identyfikatory KRS, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsy(string pKluczUzytkownika, string krsy)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsyAsync(string pKluczUzytkownika, string krsy)
         {
             try
             {
@@ -272,7 +272,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -282,7 +282,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="krsy">krsy As string - Ciąg znaków, dziesięcioznakowe identyfikatory KRS, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsy(string krsy)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByKrsyAsync(string krsy)
         {
             try
             {
@@ -290,7 +290,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -301,7 +301,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Nip">Nip As string - Identyfikator podmiotu Nip.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNip(string pKluczUzytkownika, string nip)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipAsync(string pKluczUzytkownika, string nip)
         {
             try
             {
@@ -309,7 +309,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -319,7 +319,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="Nip">Nip As string - Identyfikator podmiotu Nip.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNip(string nip)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipAsync(string nip)
         {
             try
             {
@@ -327,7 +327,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -338,7 +338,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Nipy">Nipy As string - Identyfikator podmiotu Nipy. Nipy – ciąg znaków, dziesięcioznakowe identyfikatory NIP, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipy(string pKluczUzytkownika, string nipy)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipyAsync(string pKluczUzytkownika, string nipy)
         {
             try
             {
@@ -346,7 +346,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -356,7 +356,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="Nipy">Nipy As string - Identyfikator podmiotu Nipy. Nipy – ciąg znaków, dziesięcioznakowe identyfikatory NIP, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipy(string nipy)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByNipyAsync(string nipy)
         {
             try
             {
@@ -364,7 +364,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -375,7 +375,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regon">Regon As string - Identyfikator podmiotu Regon.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegon(string pKluczUzytkownika, string regon)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegonAsync(string pKluczUzytkownika, string regon)
         {
             try
             {
@@ -383,7 +383,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -393,7 +393,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="Regon">Regon As string - Identyfikator podmiotu Regon.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegon(string regon)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegonAsync(string regon)
         {
             try
             {
@@ -401,7 +401,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -412,7 +412,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regony9zn">Regony9zn As string - Identyfikator podmiotu Regony9zn. Regony9zn – ciąg znaków, dziewięcioznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9zn(string pKluczUzytkownika, string regony9zn)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9znAsync(string pKluczUzytkownika, string regony9zn)
         {
             try
             {
@@ -420,7 +420,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -430,7 +430,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="Regony9zn">Regony9zn As string - Identyfikator podmiotu Regony9zn. Regony9zn – ciąg znaków, dziewięcioznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9zn(string regony9zn)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony9znAsync(string regony9zn)
         {
             try
             {
@@ -438,7 +438,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -449,7 +449,7 @@ namespace PortalApiGusApiRegonData
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="Regony14zn">Regony14zn As string - Identyfikator podmiotu Regony14zn. Regony14zn – ciąg znaków, czternastoznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14zn(string pKluczUzytkownika, string regony14zn)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14znAsync(string pKluczUzytkownika, string regony14zn)
         {
             try
             {
@@ -457,7 +457,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
@@ -467,7 +467,7 @@ namespace PortalApiGusApiRegonData
         /// </summary>
         /// <param name="Regony14zn">Regony14zn As string - Identyfikator podmiotu Regony14zn. Regony14zn – ciąg znaków, czternastoznakowe identyfikatory REGON, oddzielane dowolnym separatorem (za wyjątkiem cyfr), bądź bez separatora, maks. 20 identyfikatorów.</param>
         /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14zn(string regony14zn)
+        public static async Task<List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>> DaneSzukajPodmiotyAsyncByRegony14znAsync(string regony14zn)
         {
             try
             {
@@ -475,7 +475,7 @@ namespace PortalApiGusApiRegonData
             }
             catch (Exception e)
             {
-                log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
+                Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                 return null;
             }
         }
