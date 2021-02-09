@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
 {

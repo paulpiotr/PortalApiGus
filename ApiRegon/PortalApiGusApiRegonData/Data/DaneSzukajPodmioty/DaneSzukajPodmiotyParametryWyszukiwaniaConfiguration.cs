@@ -1,4 +1,17 @@
-﻿using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+
+/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (netstandard2.1)”
+Przed:
+using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+Po:
+using Microsoft.EntityFrameworkCore;
+*/
+
+/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (net5.0)”
+Przed:
+using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+Po:
+using Microsoft.EntityFrameworkCore;
+*/
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,42 +35,42 @@ namespace PortalApiGusApiRegonData.Data.DaneSzukajPodmioty
         public void Configure(EntityTypeBuilder<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania> builder)
         {
             builder.HasIndex(e => e.Id)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaId")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaId")
                 .IsUnique(true);
 
             builder.Property(e => e.Id)
                 .HasDefaultValueSql("(newsequentialid())");
 
             builder.HasIndex(e => e.UniqueIdentifierOfTheLoggedInUser)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaUniqueIdentifierOfTheLoggedInUser")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaUniqueIdentifierOfTheLoggedInUser")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Regon)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegon")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegon")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Nip)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNip")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNip")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Krs)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrs")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrs")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Nipy)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNipy")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaNipy")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Regony14zn)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony14zn")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony14zn")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Regony9zn)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony9zn")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony9zn")
                 .IsUnique(false);
 
             builder.HasIndex(e => e.Krsy)
-                .HasName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrsy")
+                .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrsy")
                 .IsUnique(false);
 
             builder.Property(e => e.DataUtworzenia)

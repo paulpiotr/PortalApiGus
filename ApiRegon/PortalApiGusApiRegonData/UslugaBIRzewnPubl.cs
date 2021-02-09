@@ -22,7 +22,7 @@ namespace PortalApiGusApiRegonData
         /// Log4net Logger
         /// Log4net Logger
         /// </summary>
-        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
         #endregion
 
         #region public static async Task<string> ZalogujAsync(string pKluczUzytkownika)
@@ -44,7 +44,7 @@ namespace PortalApiGusApiRegonData
              {
                  try
                  {
-                     UslugaBIRzewnPublClient uslugaBIRzewnPublClient = new UslugaBIRzewnPublClient();
+                     var uslugaBIRzewnPublClient = new UslugaBIRzewnPublClient();
                      ZalogujResponse zalogujResult = await uslugaBIRzewnPublClient.ZalogujAsync(pKluczUzytkownika);
                      if (null != zalogujResult && !string.IsNullOrWhiteSpace(zalogujResult.ZalogujResult))
                      {
@@ -81,7 +81,7 @@ namespace PortalApiGusApiRegonData
              {
                  try
                  {
-                     UslugaBIRzewnPublClient uslugaBIRzewnPublClient = new UslugaBIRzewnPublClient();
+                     var uslugaBIRzewnPublClient = new UslugaBIRzewnPublClient();
                      WylogujResponse wylogujResponse = await uslugaBIRzewnPublClient.WylogujAsync(pIdentyfikatorSesji);
                      if (null != wylogujResponse && wylogujResponse.WylogujResult)
                      {
@@ -192,9 +192,9 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                XmlReader xmlReader = XmlReader.Create(new StringReader(xml));
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                T _object = (T)xmlSerializer.Deserialize(xmlReader);
+                var xmlReader = XmlReader.Create(new StringReader(xml));
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                var _object = (T)xmlSerializer.Deserialize(xmlReader);
                 if (null != _object)
                 {
                     Log4net.Debug(string.Format("{0} {1} {2} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name, _object));

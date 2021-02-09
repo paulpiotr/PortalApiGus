@@ -10,7 +10,7 @@ namespace PortalApiGusApiRegonData.Helper
         /// <summary>
         /// log4net
         /// </summary>
-        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         /// <summary>
         /// Konwertuj objekt na string
@@ -23,7 +23,7 @@ namespace PortalApiGusApiRegonData.Helper
             {
                 if (null != o)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
+                    var stringBuilder = new StringBuilder();
                     foreach (PropertyInfo propertyInfo in o.GetType().GetProperties())
                     {
                         stringBuilder.Append(propertyInfo.GetValue(o, null) ?? string.Empty);
@@ -47,7 +47,7 @@ namespace PortalApiGusApiRegonData.Helper
         {
             try
             {
-                string objectToString = ObjectToString(o);
+                var objectToString = ObjectToString(o);
                 if (null != objectToString && !string.IsNullOrWhiteSpace(objectToString))
                 {
                     using (SHA512 sHA512 = new SHA512Managed())

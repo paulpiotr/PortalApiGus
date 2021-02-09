@@ -1,0 +1,10 @@
+{
+  "UseGlobalDatabaseConnectionSettings": true,
+  "LastMigrateDateTime": null,
+  "CacheLifeTime": 86400,
+  "ConnectionStrings": {
+    //Uwaga! Dla IIS to¿samoœæ Puli Apikacji musi byæ ustawiona na LocalSystem !!!
+    "PortalApiGusApiRegonDataDbContext": "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\\MSSQLLocalDB\\MSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=SSPI; Trusted_Connection=Yes; Max Pool Size=65536; Pooling=True"
+  },
+  "PortalApiGusKey": "b65986a6300044a0b7fb",
+}

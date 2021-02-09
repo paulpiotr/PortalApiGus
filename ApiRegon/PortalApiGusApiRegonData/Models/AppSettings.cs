@@ -1,67 +1,69 @@
-﻿using NetAppCommon;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
+using NetAppCommon.AppSettings.Models;
+using NetAppCommon.AppSettings.Models.Base;
+using Newtonsoft.Json;
 
 namespace PortalApiGusApiRegonData.Models
 {
-    #region public partial class AppSettings
+    #region public partial class AppSettings : AppSettingsBaseModel
     /// <summary>
     /// Klasa modelu ustawień aplikacji ApiWykazuPodatnikowVatData
     /// The settings model class of the ApiWykazuPodatnikowVatData
     /// </summary>
     [NotMapped]
-    public partial class AppSettings
+    public partial class AppSettings : AppSettingsBaseModel
     {
-        #region private readonly log4net.ILog log4net
-        /// <summary>
-        /// Log4 Net Logger
-        /// </summary>
-        private readonly log4net.ILog log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        ///Important !!!
+        #region AppSettingsModel()
+        public AppSettings()
+        {
+            try
+            {
+                var memoryCacheProvider = NetAppCommon.Helpers.Cache.MemoryCacheProvider.GetInstance();
+                var filePathKey = string.Format("{0}{1}", MethodBase.GetCurrentMethod()?.DeclaringType.FullName, ".FilePath");
+                var filePath = memoryCacheProvider.Get(filePathKey);
+                if (null == filePath)
+                {
+                    AppSettingsRepository.MergeAndCopyToUserDirectory(this);
+                    memoryCacheProvider.Put(filePathKey, FilePath, TimeSpan.FromDays(1));
+                }
+                if (null != UserProfileDirectory && null != FileName)
+                {
+                    FilePath = (string)(filePath ?? Path.Combine(UserProfileDirectory, FileName));
+                }
+                var useGlobalDatabaseConnectionSettingsKey = string.Format("{0}{1}", MethodBase.GetCurrentMethod()?.DeclaringType.FullName, ".UseGlobalDatabaseConnectionSettings");
+                var useGlobalDatabaseConnectionSettings = memoryCacheProvider.Get(useGlobalDatabaseConnectionSettingsKey);
+                if (null == useGlobalDatabaseConnectionSettings)
+                {
+                    memoryCacheProvider.Put(useGlobalDatabaseConnectionSettingsKey, UseGlobalDatabaseConnectionSettings, TimeSpan.FromDays(1));
+                    if (UseGlobalDatabaseConnectionSettings)
+                    {
+                        var appSettingsModel = new AppSettingsModel();
+                        ConnectionString = appSettingsModel.ConnectionString;
+                        AppSettingsRepository.MergeAndSave(this);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _log4Net.Error($"\n{e.GetType()}\n{e.InnerException?.GetType()}\n{e.Message}\n{e.StackTrace}\n", e);
+            }
+        }
         #endregion
 
-        #region private static readonly string FileName
+        ///Important !!!
+        #region public static AppSettingsBaseModel GetInstance()
         /// <summary>
-        /// Nazwa pliku z ustawieniami aplikacji ustawiona w zależności od wersji środowiska
-        /// Application settings file name set depending on the version of the environment
-        /// </summary>
-#if DEBUG
-        private static readonly string FileName = "portal.api.gus.api.regon.data.appsettings.debug.json";
-#else
-        private static readonly string FileName = "portal.api.gus.api.regon.data.appsettings.release.json";
-#endif
-        #endregion
-
-        #region private static readonly string FilePath...
-        /// <summary>
-        /// Absolutna ścieżka do pliku konfiguracji
-        /// The absolute path to the configuration file
-        /// </summary>
-        private static readonly string FilePath = Path.Combine(Configuration.GetBaseDirectory(), FileName);
-        #endregion
-
-        #region private static readonly string ConnectionStringName
-        /// <summary>
-        /// Nazwa połączenia bazy danych Mssql dla bieżącej aplikacji
-        /// The name of the Mssql database connection for the current application
-        /// </summary>
-        private static readonly string ConnectionStringName = "PortalApiGusApiRegonDataDbContext";
-        #endregion
-
-        #region public static AppSettings GetInstance()
-        /// <summary>
-        /// Pobierz instancję klasy AppSettings
-        /// Get an instance of the AppSettings class
+        /// Pobierz statyczną referencję do instancji AppSettingsBaseModel
+        /// Get a static reference to the AppSettingsBaseModel instance
         /// </summary>
         /// <returns>
-        /// Instanacja klasy AppSettings
-        /// Instance of the AppSettings class
+        /// Statyczna referencja do instancji AppSettingsBaseModel
+        /// A static reference to the AppSettingsBaseModel instance
         /// </returns>
         public static AppSettings GetInstance()
         {
@@ -69,230 +71,87 @@ namespace PortalApiGusApiRegonData.Models
         }
         #endregion
 
-        #region public AppSettings()
+        #region private readonly log4net.ILog log4net
         /// <summary>
-        /// Konstruktor - przypisanie zmiennych z pliku konfiguracyjnego
-        /// Constructor - assigning variables from the configuration file
+        /// Instancja do klasy Log4netLogger
+        /// Instance to Log4netLogger class
         /// </summary>
-        public AppSettings()
+        private readonly log4net.ILog _log4Net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
+        #endregion
+
+        #region protected new string _fileName = FILENAME;
+#if DEBUG
+        protected const string FILENAME = "portalapigusapiregondata.appsettings.json";
+#else
+        protected const string FILENAME = "portalapigusapiregondata.appsettings.json";
+#endif
+
+        protected new string _fileName = FILENAME;
+
+        public override string FileName
         {
-            try
+            get => _fileName;
+            protected set
             {
-                PortalApiGusKey = Configuration.GetValue<string>(FileName, "PortalApiGusKey") ?? "b65986a6300044a0b7fb";
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-            try
-            {
-                CacheLifeTime = Configuration.GetValue<int>(FileName, "CacheLifeTime");
-                if (CacheLifeTime < 0)
+                if (value != _fileName)
                 {
-                    CacheLifeTime = 1 * 1000 * 60 * 60 * 24;
+                    _fileName = value;
+                    OnPropertyChanged("FileName");
                 }
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-            try
-            {
-                ConnectionString = Configuration.GetValue<string>(FileName, string.Format("{0}:{1}", "ConnectionStrings", ConnectionStringName)) ?? @"Data Source=(LocalDB)\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\MSSQLLocalDB\MSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=True; Trusted_Connection=Yes";
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-            try
-            {
-                CheckForUpdateEveryDays = Configuration.GetValue<int>(FileName, "CheckForUpdateEveryDays");
-                if (CheckForUpdateEveryDays < 0)
-                {
-                    CheckForUpdateEveryDays = 0;
-                }
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-            try
-            {
-                LastMigrateDateTime = Configuration.GetValue<DateTime>(FileName, "LastMigrateDateTime");
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
             }
         }
         #endregion
 
-        #region PortalApiGusKey { get; set; }
+        #region protected new string _connectionStringName = CONNECTIONSTRINGNAME;
+#if DEBUG
+        protected const string CONNECTIONSTRINGNAME = "PortalApiGusApiRegonDataDbContext";
+#else
+        protected const string CONNECTIONSTRINGNAME = "PortalApiGusApiRegonDataDbContext";
+#endif
+
+        protected new string _connectionStringName = CONNECTIONSTRINGNAME;
+
+        public override string ConnectionStringName
+        {
+            get => _connectionStringName;
+            set
+            {
+                if (value != _connectionStringName)
+                {
+                    _connectionStringName = value;
+                }
+            }
+        }
+        #endregion
+
+        #region private string _portalApiGusKey; public string PortalApiGusKey
+
+        private string _portalApiGusKey;
+
         /// <summary>
-        /// Klucz api do serwisu https://wyszukiwarkaregon.stat.gov.pl/wsBIR/wsdl/UslugaBIRzewnPubl-ver11-prod.wsdl
-        /// API key to the website https://wyszukikujeregon.stat.gov.pl/wsBIR/wsdl/UslugaBIRzewnPubl-ver11-prod.wsdl
+        /// Klucz api do serwisu https://wyszukiwarkaregon.stat.gov.pl/wsBIR/wsdl/UslugaBIRzewnPubl-ver11-prod.wsdl więcej na https://api.stat.gov.pl/Home/RegonApi
+        /// API key to the website https://wyszukikujeregon.stat.gov.pl/wsBIR/wsdl/UslugaBIRzewnPubl-ver11-prod.wsdl more at https://api.stat.gov.pl/Home/RegonApi
         /// </summary>
         [JsonProperty(nameof(PortalApiGusKey))]
         [Display(Name = "Klucz api do serwisu", Prompt = "Wpisz klucz api do serwisu", Description = "Klucz api do serwisu")]
         [Required]
-        public string PortalApiGusKey { get; set; }
-        #endregion
-
-        #region int CacheLifeTime { get; set; }
-        /// <summary>
-        /// Okres istnienia pamięci podręcznej dla zapytań w serwisie API (w sekundach)
-        /// Cache lifetime for API service queries (in seconds)
-        /// </summary>
-        [JsonProperty(nameof(CacheLifeTime))]
-        [Display(Name = "Okres istnienia pamięci podręcznej dla zapytań w serwisie API (w sekundach)", Prompt = "Wpisz okres istnienia pamięci podręcznej dla zapytań w serwisie API (w sekundach)", Description = "Okres istnienia pamięci podręcznej dla zapytań w serwisie API (w sekundach)")]
-        [Required]
-        [Range(0, 2147483647)]
-        public int CacheLifeTime { get; set; }
-        #endregion
-
-        #region public int CheckForUpdateEveryDays { get; set; }
-        /// <summary>
-        /// Czas sprawdzania aktualizacji migracji bazy danych w dniach
-        /// Checking database migration updates in days
-        /// </summary>
-        [JsonProperty(nameof(CheckForUpdateEveryDays))]
-        [Display(Name = "Czas sprawdzania aktualizacji migracji bazy danych w dniach", Prompt = "Wpisz czas sprawdzania aktualizacji migracji bazy danych w dniach", Description = "Czas sprawdzania aktualizacji migracji bazy danych w dniach")]
-        [Required]
-        [Range(0, 2147483647)]
-        public int CheckForUpdateEveryDays { get; set; }
-        #endregion
-
-        #region public bool CheckForUpdateAndMigrate { get; set; }
-        /// <summary>
-        /// Sprawdź czy baza danych wymaga aktualizacji i przeprowadź instalację oraz migrację bazy danych
-        /// Check if the database needs to be updated and perform the installation and database migration
-        /// </summary>
-        [JsonIgnore]
-        [Display(Name = "Sprawdź czy baza danych wymaga aktualizacji i przeprowadź instalację oraz migrację bazy danych", Prompt = "Zaznacz, jeśli chcesz sprawdzić czy baza danych wymaga aktualizacji i przeprowadź instalację oraz migrację bazy danych", Description = "Sprawdź czy baza danych wymaga aktualizacji i przeprowadź instalację oraz migrację bazy danych")]
-        public bool CheckForUpdateAndMigrate { get; set; }
-        #endregion
-
-        #region public DateTime LastMigrateDateTime { get; private set; }
-        /// <summary>
-        /// Data ostatniej próby aktualizacji migracji bazy danych
-        /// Date of the last database migration update attempt
-        /// </summary>
-        [JsonProperty(nameof(LastMigrateDateTime))]
-        [Display(Name = "Data ostatniej próby aktualizacji migracji bazy danych", Prompt = "Wpisz lub wybierz datę ostatniej próby aktualizacji migracji bazy danych", Description = "Data ostatniej próby aktualizacji migracji bazy danych")]
-        public DateTime LastMigrateDateTime { get; set; }
-        #endregion
-
-        #region private string _ConnectionString { get; set; }
-        /// <summary>
-        /// Dostęp prywatny - ciąg połączenia do bazy danych Mssql jako string
-        /// Private Access - Mssql database connection string as string
-        /// </summary>
-        private string _ConnectionString { get; set; }
-        #endregion
-
-        #region public bool CheskForConnection { get; set; }
-        /// <summary>
-        /// Sprawdź możliwość podłączenia do bazy danych z wpisanego parametru Ciąg połączenia do bazy danych Mssql
-        /// Check the possibility of connecting to the database by entering the Mssql database connection string parameter
-        /// </summary>
-        [JsonIgnore]
-        [Display(Name = "Sprawdź możliwość podłączenia do bazy danych z wpisanego parametru Ciąg połączenia do bazy danych Mssql", Prompt = "Zaznacz, jeśli chcesz sprawdzić możliwość podłączenia do bazy danych z wpisanego parametru Ciąg połączenia do bazy danych Mssql", Description = "Sprawdź możliwość podłączenia do bazy danych z wpisanego parametru Ciąg połączenia do bazy danych Mssql")]
-        public bool CheskForConnection { get; set; }
-        #endregion
-
-        #region public string ConnectionString
-        /// <summary>
-        /// Dostęp publiczny - ciąg połączenia do bazy danych Mssql jako string
-        /// Public Access - Mssql database connection string as a string
-        /// </summary>
-        [JsonIgnore]
-        [Display(Name = "Ciąg połączenia do bazy danych Mssql", Prompt = "Wpisz ciąg połączenia do bazy danych Mssql", Description = "Ciąg połączenia do bazy danych Mssql")]
-        [Required]
-        [NetAppCommon.Validation.MssqlCanConnect]
-        public string ConnectionString
+        public string PortalApiGusKey
         {
-            get => _ConnectionString;
+            get
+            {
+                if (null == _portalApiGusKey)
+                {
+                    _portalApiGusKey = AppSettingsRepository.GetValue<string>(this, nameof(PortalApiGusKey));
+                }
+                return _portalApiGusKey;
+            }
             set
             {
-                if (null != value && !string.IsNullOrWhiteSpace(value))
+                if (value != _portalApiGusKey)
                 {
-                    _ConnectionString = value;
-                    ConnectionStrings = new Dictionary<string, string>
-                    {
-                        { ConnectionStringName, value }
-                    };
+                    _portalApiGusKey = value;
+                    OnPropertyChanged(nameof(PortalApiGusKey));
                 }
-            }
-        }
-        #endregion
-
-        #region public Dictionary<string, string> ConnectionStrings { get; private set; }
-        /// <summary>
-        /// Słownik zawierający definicję połączenia z nazwąklucza konfiguracji i wartością jako Dictionary
-        /// A dictionary containing a connection definition with a configuration key name and value as Dictionary
-        /// </summary>
-        [JsonProperty(nameof(ConnectionStrings))]
-        public Dictionary<string, string> ConnectionStrings { get; private set; }
-        #endregion
-
-        #region public string GetConnectionString()
-        /// <summary>
-        /// Pobierz parametry połączenia
-        /// Get the connection string
-        /// </summary>
-        /// <returns>
-        /// Parametry połączenia jako string lub null
-        /// Connection string as string or null
-        /// </returns>
-        public string GetConnectionString()
-        {
-            try
-            {
-                return DatabaseMssql.ParseConnectionString(ConnectionString);
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-            return null;
-        }
-        #endregion
-
-        #region public void Save()
-        /// <summary>
-        /// Zapisz kofigurację do pliku
-        /// Save configuration to file
-        /// </summary>
-        public void Save()
-        {
-            try
-            {
-                Configuration.SaveConfigurationToFile(this, FilePath);
-            }
-            catch (Exception e)
-            {
-                log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
-            }
-        }
-        #endregion
-
-        #region public async Task SaveAsync()
-        /// <summary>
-        /// Zapisz kofigurację do pliku asynchronicznie
-        /// Save configuration to file asynchronously
-        /// </summary>
-        public async Task SaveAsync()
-        {
-            try
-            {
-                await Task.Run(async () =>
-                {
-                    await Configuration.SaveConfigurationToFileAsync(this, FilePath);
-                });
-            }
-            catch (Exception e)
-            {
-                await Task.Run(() => log4net.Error(string.Format("{0}, {1}.", e.Message, e.StackTrace), e));
             }
         }
         #endregion

@@ -1,11 +1,12 @@
-using Microsoft.EntityFrameworkCore;
-using PortalApiGusApiRegonData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PortalApiGusApiRegonData.Data;
+using PortalApiGusApiRegonData.Models;
 using UslugaBIRzewnPublVer11Prod;
 
 namespace PortalApiGusApiRegonData
@@ -17,15 +18,23 @@ namespace PortalApiGusApiRegonData
         /// Log4net Logger
         /// Log4net Logger
         /// </summary>
-        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
         #endregion
 
-        #region private static readonly AppSettings appSettings
+        #region private static readonly AppSettings AppSettings
         /// <summary>
         /// Instancja do modelu ustawień jako AppSettings
         /// Instance to the settings model as AppSettings
         /// </summary>
-        private static readonly AppSettings appSettings = AppSettings.GetInstance();
+        private static readonly AppSettings AppSettings = new AppSettings();
+        #endregion
+
+        #region private static readonly PortalApiGusApiRegonDataDbContext PortalApiGusApiRegonDataDbContext
+        /// <summary>
+        /// Kontekst do bazy danych PortalApiGusApiRegonDataDbContext
+        /// The context for the PortalApiGusApiRegonDataDbContext database
+        /// </summary>
+        private static readonly PortalApiGusApiRegonDataDbContext PortalApiGusApiRegonDataDbContext = new PortalApiGusApiRegonDataDbContext(AppSettings.GetDbContextOptions<PortalApiGusApiRegonDataDbContext>());
         #endregion
 
         /// <summary>
@@ -92,23 +101,15 @@ namespace PortalApiGusApiRegonData
                 };
                 try
                 {
-                    if (appSettings.CacheLifeTime > 0)
+                    if (AppSettings.CacheLifeTime > 0)
                     {
-                        //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
-                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
+                        var daneSzukajPodmiotyList = PortalApiGusApiRegonDataDbContext.DaneSzukajPodmioty.Where(w =>
+                           w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
+                           && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)AppSettings.CacheLifeTime * -1)
+                            ).ToList();
+                        if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                         {
-                            if (context.Database.CanConnect())
-                            {
-                                var daneSzukajPodmiotyList = context.DaneSzukajPodmioty.Where(w =>
-                                   w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania)
-                                   && w.DataModyfikacji >= DateTime.Now.AddSeconds((double)appSettings.CacheLifeTime * -1)
-                                    ).ToList();
-                                if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
-                                {
-                                    Log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
-                                    return daneSzukajPodmiotyList;
-                                }
-                            }
+                            return daneSzukajPodmiotyList;
                         }
                     }
                 }
@@ -125,7 +126,6 @@ namespace PortalApiGusApiRegonData
                         List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = DeserializeXmlAsDaneSzukajPodmiotyList(daneSzukajPodmiotyResponse.DaneSzukajPodmiotyResult);
                         if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                         {
-                            Log4net.Debug(string.Format("{0} {1} OK", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
                             try
                             {
                                 foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
@@ -135,30 +135,21 @@ namespace PortalApiGusApiRegonData
                                     daneSzukajPodmioty.DataUtworzenia = DateTime.Now;
                                     daneSzukajPodmioty.DataModyfikacji = DateTime.Now;
                                     daneSzukajPodmioty.UniqueIdentifierOfTheLoggedInUser = NetAppCommon.HttpContextAccessor.AppContext.GetCurrentUserIdentityName();
-                                    //using (Data.PortalApiGusApiRegonDataDbContext context = new Data.PortalApiGusApiRegonDataDbContext(PortalApiGusApiRegonDataContext.GetConnectionOptionsBuilder()))
                                     try
                                     {
-                                        using (Data.PortalApiGusApiRegonDataDbContext context = await NetAppCommon.DatabaseMssql.CreateInstancesForDatabaseContextClassAsync<Data.PortalApiGusApiRegonDataDbContext>())
+                                        Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = PortalApiGusApiRegonDataDbContext.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
+                                        if (null != daneSzukajPodmiotyWhere)
                                         {
-                                            if (context.Database.CanConnect())
-                                            {
-                                                Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmiotyWhere = context.DaneSzukajPodmioty.Where(w => w.ParametryWyszukiwaniaSHA512 == Helper.ObjectHelper.ObjectToSHA512(parametryWyszukiwania) && w.Regon == daneSzukajPodmioty.Regon).FirstOrDefault();
-                                                if (null != daneSzukajPodmiotyWhere)
-                                                {
-                                                    daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
-                                                    //daneSzukajPodmioty.DataUtworzenia = daneSzukajPodmiotyWhere.DataUtworzenia;
-                                                    context.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
-                                                }
-                                                //MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DaneSzukajPodmioty.DaneSzukajPodmioty, Models.DaneSzukajPodmioty.DaneSzukajPodmioty>(); });
-                                                //IMapper iMapper = mapperConfiguration.CreateMapper();
-                                                //daneSzukajPodmiotyWhere = iMapper.Map(daneSzukajPodmioty, daneSzukajPodmiotyWhere);
-                                                if (null != daneSzukajPodmioty)
-                                                {
-                                                    context.Entry(daneSzukajPodmioty).State = "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
-                                                    var result = await context.SaveChangesAsync();
-                                                    Log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
-                                                }
-                                            }
+                                            daneSzukajPodmioty.Id = daneSzukajPodmiotyWhere.Id;
+                                            PortalApiGusApiRegonDataDbContext.Entry(daneSzukajPodmiotyWhere).State = EntityState.Detached;
+                                        }
+                                        if (null != daneSzukajPodmioty)
+                                        {
+                                            PortalApiGusApiRegonDataDbContext.Entry(daneSzukajPodmioty).State = "00000000-0000-0000-0000-000000000000" != daneSzukajPodmioty.Id.ToString() ? EntityState.Modified : EntityState.Added;
+                                            var result = await PortalApiGusApiRegonDataDbContext.SaveChangesAsync();
+#if DEBUG
+                                            Log4net.Debug($"Save Changes Async to database: { result } id: { daneSzukajPodmioty.Id }");
+#endif
                                         }
                                     }
                                     catch (Exception e)
@@ -174,20 +165,15 @@ namespace PortalApiGusApiRegonData
                             return daneSzukajPodmiotyList;
                         }
                     }
+#if DEBUG
                     Log4net.Debug(string.Format("{0} {1} EMPTY", Assembly.GetExecutingAssembly().FullName, MethodBase.GetCurrentMethod().Name));
+#endif
                     return null;
                 }
                 catch (Exception e)
                 {
                     Log4net.Error(string.Format("{0}, {1}", e.Message, e.StackTrace), e);
                     return null;
-                }
-                finally
-                {
-                    //if (null != pIdentyfikatorSesji && !string.IsNullOrWhiteSpace(pIdentyfikatorSesji))
-                    //{
-                    //    await WylogujAsync(pIdentyfikatorSesji);
-                    //}
                 }
             }
             catch (Exception e)
@@ -212,7 +198,7 @@ namespace PortalApiGusApiRegonData
         {
             try
             {
-                return await DaneSzukajPodmiotyAsync(appSettings.PortalApiGusKey, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                return await DaneSzukajPodmiotyAsync(AppSettings.PortalApiGusKey, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
             }
             catch (Exception e)
             {
