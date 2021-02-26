@@ -15,7 +15,7 @@ namespace PortalApiGusApiRegonData.Models
     /// The settings model class of the ApiWykazuPodatnikowVatData
     /// </summary>
     [NotMapped]
-    public partial class AppSettings : AppSettingsBaseModel
+    public sealed class AppSettings : AppSettingsBaseModel
     {
         ///Important !!!
         #region AppSettingsModel()
@@ -24,19 +24,20 @@ namespace PortalApiGusApiRegonData.Models
             try
             {
                 var memoryCacheProvider = NetAppCommon.Helpers.Cache.MemoryCacheProvider.GetInstance();
-                var filePathKey = string.Format("{0}{1}", MethodBase.GetCurrentMethod()?.DeclaringType.FullName, ".FilePath");
-                var filePath = memoryCacheProvider.Get(filePathKey);
+                var filePathKey = $"{MethodBase.GetCurrentMethod()?.DeclaringType?.FullName}.FilePath";
+                var filePath = (object)memoryCacheProvider.Get(filePathKey);
                 if (null == filePath)
                 {
-                    AppSettingsRepository.MergeAndCopyToUserDirectory(this);
+                    AppSettingsRepository?.MergeAndCopyToUserDirectory(this);
                     memoryCacheProvider.Put(filePathKey, FilePath, TimeSpan.FromDays(1));
                 }
                 if (null != UserProfileDirectory && null != FileName)
                 {
                     FilePath = (string)(filePath ?? Path.Combine(UserProfileDirectory, FileName));
                 }
-                var useGlobalDatabaseConnectionSettingsKey = string.Format("{0}{1}", MethodBase.GetCurrentMethod()?.DeclaringType.FullName, ".UseGlobalDatabaseConnectionSettings");
-                var useGlobalDatabaseConnectionSettings = memoryCacheProvider.Get(useGlobalDatabaseConnectionSettingsKey);
+                var useGlobalDatabaseConnectionSettingsKey =
+                    $"{MethodBase.GetCurrentMethod()?.DeclaringType?.FullName}.UseGlobalDatabaseConnectionSettings";
+                var useGlobalDatabaseConnectionSettings = (object)memoryCacheProvider.Get(useGlobalDatabaseConnectionSettingsKey);
                 if (null == useGlobalDatabaseConnectionSettings)
                 {
                     memoryCacheProvider.Put(useGlobalDatabaseConnectionSettingsKey, UseGlobalDatabaseConnectionSettings, TimeSpan.FromDays(1));
@@ -44,7 +45,7 @@ namespace PortalApiGusApiRegonData.Models
                     {
                         var appSettingsModel = new AppSettingsModel();
                         ConnectionString = appSettingsModel.ConnectionString;
-                        AppSettingsRepository.MergeAndSave(this);
+                        AppSettingsRepository?.MergeAndSave(this);
                     }
                 }
             }
@@ -67,7 +68,7 @@ namespace PortalApiGusApiRegonData.Models
         /// </returns>
         public static AppSettings GetInstance()
         {
-            return new AppSettings();
+            return new();
         }
         #endregion
 
@@ -81,12 +82,12 @@ namespace PortalApiGusApiRegonData.Models
 
         #region protected new string _fileName = FILENAME;
 #if DEBUG
-        protected const string FILENAME = "portalapigusapiregondata.appsettings.json";
+        private const string Filename = "portalapigusapiregondata.appsettings.json";
 #else
-        protected const string FILENAME = "portalapigusapiregondata.appsettings.json";
+        private const string Filename = "portalapigusapiregondata.appsettings.json";
 #endif
 
-        protected new string _fileName = FILENAME;
+        private new string _fileName = Filename;
 
         public override string FileName
         {
@@ -104,12 +105,12 @@ namespace PortalApiGusApiRegonData.Models
 
         #region protected new string _connectionStringName = CONNECTIONSTRINGNAME;
 #if DEBUG
-        protected const string CONNECTIONSTRINGNAME = "PortalApiGusApiRegonDataDbContext";
+        private const string Connectionstringname = "PortalApiGusApiRegonDataDbContext";
 #else
-        protected const string CONNECTIONSTRINGNAME = "PortalApiGusApiRegonDataDbContext";
+        private const string Connectionstringname = "PortalApiGusApiRegonDataDbContext";
 #endif
 
-        protected new string _connectionStringName = CONNECTIONSTRINGNAME;
+        private new string _connectionStringName = Connectionstringname;
 
         public override string ConnectionStringName
         {
@@ -141,7 +142,7 @@ namespace PortalApiGusApiRegonData.Models
             {
                 if (null == _portalApiGusKey)
                 {
-                    _portalApiGusKey = AppSettingsRepository.GetValue<string>(this, nameof(PortalApiGusKey));
+                    _portalApiGusKey = AppSettingsRepository?.GetValue<string>(this, nameof(PortalApiGusKey));
                 }
                 return _portalApiGusKey;
             }

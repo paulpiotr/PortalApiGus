@@ -11,8 +11,8 @@ namespace PortalApiGusApiRegonData.Data
     {
         #region private readonly log4net.ILog log4net
         /// <summary>
-        /// Log4 Net Logger
-        /// Log4 Net Logger
+        /// private readonly ILog _log4Net
+        /// private readonly ILog _log4Net
         /// </summary>
         private readonly log4net.ILog _log4Net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
         #endregion
