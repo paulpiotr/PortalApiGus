@@ -1,43 +1,55 @@
-﻿using System;
+﻿#region using
+
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
+#endregion
+
 namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
 {
     #region public partial class DaneSzukajPodmioty
+
     /// <summary>
-    /// Model danych dla wyszukiwanych podmiotów w raporcie podstawowym
-    /// Data model for the searched entities in the basic report
+    ///     Model danych dla wyszukiwanych podmiotów w raporcie podstawowym
+    ///     Data model for the searched entities in the basic report
     /// </summary>
     [Table("DaneSzukajPodmioty", Schema = "pagard")]
-    [Serializable, XmlRoot("dane")]
-    public partial class DaneSzukajPodmioty
+    [Serializable]
+    [XmlRoot("dane")]
+    public class DaneSzukajPodmioty
     {
         #region public Guid Id { get; set; }
+
         /// <summary>
-        /// Guid Id identyfikator, klucz główny
+        ///     Guid Id identyfikator, klucz główny
         /// </summary>
         [XmlIgnore]
         [Key]
         [JsonProperty(nameof(Id))]
         [Display(Name = "Identyfikator", Prompt = "Wpisz identyfikator", Description = "Identyfikator klucz główny")]
         public Guid Id { get; set; }
+
         #endregion
 
         #region public string UniqueIdentifierOfTheLoggedInUser { get; set; }
+
         /// <summary>
-        /// Jednoznaczny identyfikator zalogowanego użytkownika
-        /// Unique identifier of the logged in user
+        ///     Jednoznaczny identyfikator zalogowanego użytkownika
+        ///     Unique identifier of the logged in user
         /// </summary>
         [XmlIgnore]
         [Column("UniqueIdentifierOfTheLoggedInUser", TypeName = "varchar(512)")]
         [JsonProperty(nameof(UniqueIdentifierOfTheLoggedInUser))]
-        [Display(Name = "Identyfikator zalogowanego użytkownika", Prompt = "Wybierz identyfikator zalogowanego użytkownika", Description = "Identyfikator zalogowanego użytkownika")]
+        [Display(Name = "Identyfikator zalogowanego użytkownika",
+            Prompt = "Wybierz identyfikator zalogowanego użytkownika",
+            Description = "Identyfikator zalogowanego użytkownika")]
         [StringLength(512)]
         //[Required]
         public string UniqueIdentifierOfTheLoggedInUser { get; set; }
+
         #endregion
 
         [XmlIgnore]
@@ -130,28 +142,35 @@ namespace PortalApiGusApiRegonData.Models.DaneSzukajPodmioty
         public string MiejscowoscPoczty { get; set; }
 
         #region public DateTime DataUtworzenia { get; set; }
+
         /// <summary>
-        /// Data utworzenia
+        ///     Data utworzenia
         /// </summary>
         [XmlIgnore]
         [Column("DataUtworzenia", TypeName = "datetime")]
         [JsonProperty(nameof(DataUtworzenia))]
-        [Display(Name = "Data Utworzenia", Prompt = "Wpisz lub wybierz datę utworzenia", Description = "Data utworzenia")]
+        [Display(Name = "Data Utworzenia", Prompt = "Wpisz lub wybierz datę utworzenia",
+            Description = "Data utworzenia")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DataUtworzenia { get; set; }
+
         #endregion
 
         #region public DateTime? DataModyfikacji { get; set; }
+
         /// <summary>
-        /// Data modyfikacji
+        ///     Data modyfikacji
         /// </summary>
         [XmlIgnore]
         [Column("DataModyfikacji", TypeName = "datetime")]
         [JsonProperty(nameof(DataModyfikacji))]
-        [Display(Name = "Data Modyfikacji", Prompt = "Wpisz lub wybierz datę modyfikacji", Description = "Data modyfikacji")]
+        [Display(Name = "Data Modyfikacji", Prompt = "Wpisz lub wybierz datę modyfikacji",
+            Description = "Data modyfikacji")]
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime? DataModyfikacji { get; set; }
+
         #endregion
     }
+
     #endregion
 }

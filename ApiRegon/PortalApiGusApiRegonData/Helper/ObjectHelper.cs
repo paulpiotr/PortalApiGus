@@ -1,19 +1,25 @@
+#region using
+
 using System;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using log4net;
+
+#endregion
 
 namespace PortalApiGusApiRegonData.Helper
 {
     public static class ObjectHelper
     {
         /// <summary>
-        /// log4net
+        ///     log4net
         /// </summary>
-        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Log4net =
+            Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         /// <summary>
-        /// Konwertuj objekt na string
+        ///     Konwertuj objekt na string
         /// </summary>
         /// <param name="o">o As object</param>
         /// <returns>string ciąg lub null</returns>
@@ -28,8 +34,10 @@ namespace PortalApiGusApiRegonData.Helper
                     {
                         stringBuilder.Append(propertyInfo.GetValue(o, null) ?? string.Empty);
                     }
+
                     return stringBuilder.ToString();
                 }
+
                 return null;
             }
             catch (Exception e)
@@ -38,8 +46,8 @@ namespace PortalApiGusApiRegonData.Helper
                 return null;
             }
         }
+
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
@@ -54,6 +62,7 @@ namespace PortalApiGusApiRegonData.Helper
                     {
                         return Convert.ToBase64String(sHA512.ComputeHash(Encoding.UTF8.GetBytes(objectToString)));
                     }
+
                     //byte[] getBytes = Encoding.UTF8.GetBytes(objectToString);
                     //using (System.Security.Cryptography.SHA512 sha512 = System.Security.Cryptography.SHA512.Create())
                     //{
@@ -66,6 +75,7 @@ namespace PortalApiGusApiRegonData.Helper
                     //    return stringBuilder.ToString();
                     //}
                 }
+
                 return null;
             }
             catch (Exception e)

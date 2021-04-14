@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.Core\PortalApiGus.ApiRegon.Core.csproj" />
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.DataBaseContext\PortalApiGus.ApiRegon.DataBase.csproj" />
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.WebApiRazor\PortalApiGus.ApiRegon.WebApiRazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\..\.env\telerik.ui.for.aspnet.core\2020.2.617\lib\netcoreapp3.1\Kendo.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Areas\PortalApiGus\Views\DaneSzukajPodmioty\Index - kopiować.cshtml.cs">
+      <DependentUpon>Index.cshtml.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+</Project>

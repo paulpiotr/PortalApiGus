@@ -1,0 +1,364 @@
+﻿@using System.Reflection
+@using Kendo.Mvc.UI
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
+@using PortalApiGus.ApiRegon.Core.Models.DaneSzukajPodmioty
+@using PortalApiGus.ApiRegon.Core.ViewModels
+@using PortalApiGus.ApiRegon.WebAppRazor.Helpers
+@model PortalApiGus.ApiRegon.Core.ViewModels.DaneSzukajPodmiotyViewModel
+
+@{ ViewData["Title"] = "Portal Api Gus, Api Regon, Historia wyszukiwania"; }
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+@{ var gridName = $"Kendo{(null != Model ? Assembly.GetAssembly(Model.GetType())?.GetHashCode().ToString() : GetHashCode().ToString())}"; }
+@{ var gridBreadCrumb = $"{gridName}BreadCrumb"; }
+@{ var gridDataSource = $"{gridName}DataSource"; }
+@{ var gridToolbarTemplate = $"{gridName}GridToolbarTemplate"; }
+@{ var gridAction = $"{Url.Action("GetAll", "DaneSzukajPodmiotyApi", new {Area = "PortalApiGusApi", DateOfCreateFrom = Model?.DateOfCreateFrom?.ToString("O"), DateOfCreateTo = Model?.DateOfCreateTo?.ToString("O")})}"; }
+@{ var gridFormName = $"{gridName}GridForm"; }
+@{ var gridFormAction = $"{Url.Action("GetAll", "DaneSzukajPodmiotyApi", new {Area = "PortalApiGusApi"})}"; }
+@{ var gridPanelBar = $"{gridName}GridPanelBar"; }
+@{ var gridPanelBarFilterButton = $"{gridName}PanelBarFilterButton"; }
+@{ var windowName = $"{gridName}Window"; }
+
+<div class="container-fluid m-0">
+    @*<div class="row">
+        [@Html.Raw(gridAction)]
+    </div>
+    <div class="row">
+        [@Html.Raw(gridFormAction)]
+    </div>*@
+    <div class="row">
+        @(Html.Kendo().Breadcrumb()
+            .Name(gridBreadCrumb)
+            .Items(items =>
+            {
+                items.Add()
+                    .Type(BreadcrumbItemType.RootItem)
+                    .Href("javascript:void(0)")
+                    .Text(ViewData["Title"].ToString())
+                    .ShowText(true)
+                    .Icon("home")
+                    .ShowIcon(true);
+            }))
+    </div>
+    <div class="row overflow-auto">
+        @(Html.Kendo().DataSource<DaneSzukajPodmioty>()
+            .Name(gridDataSource)
+            .Ajax(
+                dataSource => dataSource
+                    .Batch(true)
+                    .PageSize(256)
+                    .AutoSync(true)
+                    .ServerOperation(false)
+                    .Read(read => read.Url(gridAction).Type(HttpVerbs.Get)
+                    )))
+        @(Html.Kendo().Grid<DaneSzukajPodmioty>()
+            .Name(gridName)
+            .Columns(
+                columns =>
+                {
+                    columns.Bound(c => c.Id);
+                    columns.Bound(c => c.UniqueIdentifierOfTheLoggedInUser);
+                    columns.Bound(c => c.Nazwa);
+                    columns.Bound(c => c.Nip);
+                    columns.Bound(c => c.StatusNip);
+                    columns.Bound(c => c.Regon);
+                    columns.Bound(c => c.DateOfCreate);
+                    columns.Bound(c => c.DateOfModification);
+                })
+            .ToolBar(toolbar => { toolbar.ClientTemplateId(gridToolbarTemplate); })
+            .Selectable()
+            .Events(e => e.Change("onChangeGridWidget"))
+            .Sortable()
+            .Scrollable()
+            .Filterable(filterable => filterable.Extra(false).Operators(operators => operators.ForString(str => str.Clear().IsEqualTo("Jest równy").Contains("Zawiera"))))
+            .DataSource(gridDataSource))
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+    .Name(windowName)
+    .Title("")
+    .Content(@<text></text>)
+    .Draggable()
+    .Resizable()
+    .Width(1024)
+    .Visible(false)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close()))
+
+@Html.Script(
+    @<script id="@gridToolbarTemplate" type="text/x-kendo-template">
+    <div class="toolbar">
+    @(Html.Kendo().PanelBar()
+        .Name(gridPanelBar)
+        .Events(events => events
+            .Select("OnPanelBarSelect")
+            .Expand("OnPanelBarExpand")
+            .Collapse("OnPanelBarCollapse")
+            .Activate("OnPanelBarActivate")
+        )
+        .Items(panelbar =>
+        {
+            panelbar.Add().Text(Html.Kendo().Button()
+                .Name(gridPanelBarFilterButton)
+                .Icon("filter")
+                .HtmlAttributes(new {type = "button", @class = "k-primary k-flat ml-n2"})
+                .Content("Filtruj dane")
+                .Events(e => e.Click("OnFilterButtonClick"))
+                .ToClientTemplate()
+                .ToString()
+                )
+                .Content(Html.Raw(@"<div class='col-sm-12 col-md-10 col-lg-6 col-xl-4'>") + Html.Kendo().Form<DaneSzukajPodmiotyViewModel>()
+                    .Name(gridFormName)
+                    .HtmlAttributes(new {action = $"{Html.Raw(gridFormAction)}", method = $"{Html.Raw(HttpMethod.Post)}"})
+                    .Layout("grid")
+                    .Grid(g => g.Cols(2).Gutter(8))
+                    .Validatable(validatable =>
+                    {
+                        validatable.ValidateOnBlur(false);
+                        validatable.ValidationSummary(false);
+                    })
+                    .Items(items =>
+                    {
+                        items.AddGroup()
+                            .Label(Html.LabelFor(m => m.DateOfCreateFrom).ToString())
+                            .Layout("grid")
+                            .Grid(g => g.Cols(1).Gutter(4))
+                            .Items(i =>
+                            {
+                                i.Add()
+                                    .Field(f => f.DateOfCreateFrom)
+                                    .Label(l => l.Text("Data importu od").Optional(false))
+                                    .Editor(e => e.DateTimePicker()
+                                        .HtmlAttributes(new {style = "width: 100%", title = "datetimepicker"})
+                                        .Value(Model?.DateOfCreateFrom.GetValueOrDefault())
+                                        .Min(new DateTime(2021, 1, 1))
+                                        .Max(DateTime.Now)
+                                        .Culture("pl-PL")
+                                        .DateInput()
+                                    );
+                            });
+                        items.AddGroup()
+                            .Label(Html.LabelFor(m => m.DateOfCreateTo).ToString())
+                            .Layout("grid")
+                            .Grid(g => g.Cols(1).Gutter(4))
+                            .Items(i =>
+                            {
+                                i.Add()
+                                    .Field(f => f.DateOfCreateTo)
+                                    .Label(l => l.Text("Data importu do").Optional(false))
+                                    .Editor(e => e.DateTimePicker()
+                                        .HtmlAttributes(new {style = "width: 100%", title = "datetimepicker"})
+                                        .Value(Model?.DateOfCreateTo.GetValueOrDefault())
+                                        .Min(new DateTime(2021, 1, 1))
+                                        .Max(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)))
+                                        .Culture("pl-PL")
+                                        .DateInput()
+                                    );
+                            });
+                    })
+                    .Events(@event =>
+                        @event
+                            .Submit("OnFormSubmit")
+                            .Clear("OnFormClear"))
+                    .ToClientTemplate().ToString() + Html.Raw("</div>"));
+        })
+        .ToClientTemplate())
+   </div>
+    </script>)
+
+@Html.Script(
+    @<script type="text/javascript">
+         $(function() {
+             try {
+                 const color = $('.k-header').first().css('backgroundColor');
+                 $('.k-form-field').css('margin-top', '-0.75rem');
+                 $('.k-form-buttons').css('margin-top', '-0.75rem');
+                 $('.k-form-legend').hide();
+                 $('.k-widget.k-panelbar').css('border', 'none');
+                 $('.k-content').css('border', 'none');
+                 $('.k-link').css('border', 'none').css('backgroundColor', color);
+                 $('.k-panelbar .k-content').css('border', 'none').css('backgroundColor', color);
+                 $('.k-grid-toolbar').css('border', 'none');
+                 $('.toolbar').css('border', 'none');
+                 $('.toolbar').children().css('border', 'none');
+                 $('.k-form-buttons .k-button.k-primary.k-form-submit').text('Zastosuj filtrowanie');
+                 $('.k-form-buttons .k-button.k-form-clear').text('Wyczyść formularz');
+                 kendo.culture("pl-PL");
+             } catch (e) {
+                 console.log(e);
+             }
+         });
+
+         function onChangeGridWidget(e) {
+             $("#@windowName").data("kendoWindow").close();
+             const currentDataItem = e.sender.dataItem(this.select());
+             $("#@windowName").data("kendoWindow")
+                 .open()
+                 .content("<div class='p-3'><pre id='json-renderer'></pre></div>")
+                 .refresh()
+                 .title(`Sczegóły ${currentDataItem.Id}`)
+                 .center()
+                 .setOptions({ width: $(document).width() * 0.62, height: $(document).height() * 0.62, position: { left: ($(document).width() * 0.38) / 2, top: ($(document).height() * 0.38) / 2 } });
+             $('#json-renderer').jsonViewer(JSON.parse(JSON.stringify(currentDataItem)));
+         }
+
+         function OnFilterButtonClick(e) {
+             try {
+                 event.preventDefault();
+                 const panelBar = $('#@Html.Raw(gridPanelBar)').data('kendoPanelBar');
+                 if (null != panelBar) {
+                     const panelBarItemFirst = $('#@Html.Raw(gridPanelBar) li:first-child');
+                     if (null != panelBarItemFirst && panelBarItemFirst.hasClass('k-state-active')) {
+                         panelBar.collapse(panelBarItemFirst);
+                     } else if (null != panelBarItemFirst) {
+                         panelBar.expand(panelBarItemFirst);
+                     }
+                 }
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+
+         function PanelBarCss(e) {
+             try {
+                 const color = $('.k-header').first().css('backgroundColor');
+                 $(e.item).find("> .k-link").removeClass('k-state-focused').removeClass('k-state-selected').removeClass('k-state-hover').css('border-color', color);
+                 $(e.item).find("> .k-item").removeClass('k-state-highlight').removeClass('k-state-active');
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+
+         function OnPanelBarSelect(e) {
+             PanelBarCss(e);
+         }
+
+         function OnPanelBarActivate(e) {
+             PanelBarCss(e);
+         }
+
+         function OnPanelBarExpand(e) {
+             PanelBarCss(e);
+         }
+
+         function OnPanelBarCollapse(e) {
+             PanelBarCss(e);
+         }
+
+         function OnFormClear(event) {
+             try {
+                 event.preventDefault();
+                 const gridDataSource = @gridDataSource;
+                 if (null != gridDataSource) {
+                     gridDataSource.online(false);
+                     gridDataSource.data([]);
+                     $('#@gridName').data('kendoGrid').refresh();
+                 }
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+
+         function OnFormSubmit(event) {
+             event.preventDefault();
+             try {
+                 const model = event.model;
+                 const gridDataSource = @gridDataSource;
+                 $.ajax({
+                     type: 'POST',
+                     url: '@Html.Raw(gridFormAction)',
+                     data: JSON.stringify(model),
+                     contentType: 'application/json',
+                     dataType: 'json',
+                     beforeSend: function() {
+                         $('.k-form-field .k-form-error.k-invalid-msg.field-validation-error').remove();
+                     },
+                     success: function(data) {
+                         var object = data;
+                         if (typeof data !== 'undefined' && data !== null) {
+                             try {
+                                 object = JSON.parse(data.responseText);
+                             } catch (e) {
+                                 try {
+                                     object = JSON.parse(data);
+                                 } catch (e) {
+                                     object = data;
+                                 }
+                             }
+                         }
+                         if (typeof object !== 'undefined' && object !== null && object.Data !== null && null != gridDataSource) {
+                             gridDataSource.data(object.Data);
+                             $('#@gridName').data('kendoGrid').refresh();
+                             return true;
+                         }
+                         return false;
+                     },
+                     error: function(data) {
+                         var object = data;
+                         if (typeof object !== 'undefined' && object !== null && object.status !== null) {
+                             switch (data.status) {
+                             default:
+                                 $.toast({
+                                     heading: 'Błąd serwera',
+                                     text: `Nie znaleziono danych w podanym zakresie filtrowania! ${data.status}`,
+                                     position: 'top-center',
+                                     loaderBg: '#ff6849',
+                                     icon: 'error',
+                                     hideAfter: 7000,
+                                     stack: 7
+                                 });
+                                 break;
+                             case 404:
+                                 if (null != gridDataSource) {
+                                     gridDataSource.data([]);
+                                     $('#@gridName').data('kendoGrid').refresh();
+                                 }
+                                 $.toast({
+                                     heading: 'Brak danych!',
+                                     text: 'Nie znaleziono danych w podanym zakresie filtrowania!',
+                                     position: 'top-center',
+                                     loaderBg: '#ff6849',
+                                     icon: 'error',
+                                     hideAfter: 7000,
+                                     stack: 7
+                                 });
+                                 break;
+                             case 400:
+                                 try {
+                                     object = JSON.parse(data.responseText);
+                                 } catch (e) {
+                                     try {
+                                         object = JSON.parse(data);
+                                     } catch (e) {
+                                         object = data;
+                                     }
+                                 }
+                                 if (typeof object !== 'undefined' && object !== null) {
+                                     var text = $(`<div></div>`);
+                                     $.each(object,
+                                         function(key, value) {
+                                             $(`#${key}`).closest('.k-form-field').append($(`<span></span>`).addClass('k-form-error k-invalid-msg field-validation-error').text(value));
+                                             text.append($(`<span></span>`).addClass('text-light').text(value));
+                                         });
+                                     $.toast({
+                                         heading: 'Popraw dane!',
+                                         text: text.prop('outerHTML'),
+                                         position: 'top-center',
+                                         loaderBg: '#ff6849',
+                                         icon: 'error',
+                                         hideAfter: 7000,
+                                         stack: 7
+                                     });
+                                     return true;
+                                 }
+                                 break;
+                             }
+                         }
+                         return false;
+                     }
+                 });
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+     </script>)

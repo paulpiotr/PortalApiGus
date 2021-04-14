@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.Core\PortalApiGus.ApiRegon.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="portalapigus.apiregon.database.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <Target Name="SetEnvConfig" BeforeTargets="Compile">
+    <Copy SourceFiles="..\..\..\..\.env\log4net.debug.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" Exists('..\..\..\..\.env\log4net.debug.config') AND '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " ContinueOnError="true" />
+    <Copy SourceFiles="..\..\..\..\.env\log4net.release.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" Exists('..\..\..\..\.env\log4net.debug.config') AND '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " ContinueOnError="true" />
+    <Copy SourceFiles="Resources\log4net.debug.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" Exists('Resources\log4net.debug.config') AND '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " ContinueOnError="true" />
+    <Copy SourceFiles="Resources\log4net.release.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" Exists('Resources\log4net.debug.config') AND '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " ContinueOnError="true" />
+    <Copy SourceFiles="Resources\portalapigus.apiregon.database.debug.json" DestinationFiles="portalapigus.apiregon.database.json" OverwriteReadOnlyFiles="true" Condition=" Exists('Resources\portalapigus.apiregon.database.debug.json') AND '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " ContinueOnError="true" />
+    <Copy SourceFiles="Resources\portalapigus.apiregon.database.release.json" DestinationFiles="portalapigus.apiregon.database.json" OverwriteReadOnlyFiles="true" Condition=" Exists('Resources\portalapigus.apiregon.database.release.json') AND '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " ContinueOnError="true" />
+  </Target>
+
+</Project>

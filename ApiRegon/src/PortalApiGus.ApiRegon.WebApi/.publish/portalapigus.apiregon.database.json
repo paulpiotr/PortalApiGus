@@ -1,0 +1,8 @@
+{
+  "UseGlobalDatabaseConnectionSettings": false,
+  "LastMigrateDateTime": null,
+  "CacheLifeTime": 86400,
+  "ConnectionStrings": {
+    "PortalApiGusApiRegonDataBase": "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\\MSSQLLocalDB\\PortalApiGusApiRegonDataBaseMSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=SSPI; Trusted_Connection=Yes; Pooling=True; Min Pool Size=1024; Max Pool Size=65536"
+  }
+}

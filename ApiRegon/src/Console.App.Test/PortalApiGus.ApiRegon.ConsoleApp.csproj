@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>PortalApiGus.ApiRegon.PortalApiGus.ApiRegon.ConsoleApp</AssemblyName>
+    <RootNamespace>PortalApiGus.ApiRegon.PortalApiGus.ApiRegon.ConsoleApp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.Core\PortalApiGus.ApiRegon.Core.csproj" />
+    <ProjectReference Include="..\PortalApiGus.ApiRegon.DataBaseContext\PortalApiGus.ApiRegon.DataBase.csproj" />
+  </ItemGroup>
+
+</Project>

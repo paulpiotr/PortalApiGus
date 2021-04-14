@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region using
+
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+
+#endregion
 
 namespace PortalApiGusApiRegonData.Migrations
 {
@@ -8,15 +12,16 @@ namespace PortalApiGusApiRegonData.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "pagard");
+                "pagard");
 
             migrationBuilder.CreateTable(
-                name: "DaneSzukajPodmioty",
+                "DaneSzukajPodmioty",
                 schema: "pagard",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "(newsequentialid())"),
-                    UniqueIdentifierOfTheLoggedInUser = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    UniqueIdentifierOfTheLoggedInUser =
+                        table.Column<string>("varchar(512)", maxLength: 512, nullable: true),
                     ParametryWyszukiwaniaSHA512 = table.Column<string>(maxLength: 2147483647, nullable: true),
                     ParametryWyszukiwaniaJson = table.Column<string>(maxLength: 2147483647, nullable: true),
                     Regon = table.Column<string>(maxLength: 14, nullable: true),
@@ -35,8 +40,9 @@ namespace PortalApiGusApiRegonData.Migrations
                     SilosID = table.Column<int>(nullable: true),
                     DataZakonczeniaDzialalnosci = table.Column<string>(maxLength: 10, nullable: true),
                     MiejscowoscPoczty = table.Column<string>(maxLength: 200, nullable: true),
-                    DataUtworzenia = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
-                    DataModyfikacji = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DataUtworzenia =
+                        table.Column<DateTime>("datetime", nullable: false, defaultValueSql: "(getdate())"),
+                    DataModyfikacji = table.Column<DateTime>("datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,12 +50,13 @@ namespace PortalApiGusApiRegonData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DaneSzukajPodmiotyParametryWyszukiwania",
+                "DaneSzukajPodmiotyParametryWyszukiwania",
                 schema: "pagard",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "(newsequentialid())"),
-                    UniqueIdentifierOfTheLoggedInUser = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    UniqueIdentifierOfTheLoggedInUser =
+                        table.Column<string>("varchar(512)", maxLength: 512, nullable: true),
                     SHA512 = table.Column<string>(maxLength: 2147483647, nullable: true),
                     Regon = table.Column<string>(maxLength: 14, nullable: true),
                     Nip = table.Column<string>(maxLength: 10, nullable: true),
@@ -58,8 +65,9 @@ namespace PortalApiGusApiRegonData.Migrations
                     Regony14zn = table.Column<string>(maxLength: 300, nullable: true),
                     Regony9zn = table.Column<string>(maxLength: 200, nullable: true),
                     Krsy = table.Column<string>(maxLength: 220, nullable: true),
-                    DataUtworzenia = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
-                    DataModyfikacji = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DataUtworzenia =
+                        table.Column<DateTime>("datetime", nullable: false, defaultValueSql: "(getdate())"),
+                    DataModyfikacji = table.Column<DateTime>("datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,141 +75,141 @@ namespace PortalApiGusApiRegonData.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyGmina",
+                "IX_DaneSzukajPodmiotyGmina",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Gmina");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyId",
+                "IX_DaneSzukajPodmiotyId",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyKodPocztowy",
+                "IX_DaneSzukajPodmiotyKodPocztowy",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "KodPocztowy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyMiejscowosc",
+                "IX_DaneSzukajPodmiotyMiejscowosc",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Miejscowosc");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotySilosMiejscowoscPoczty",
+                "IX_DaneSzukajPodmiotySilosMiejscowoscPoczty",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "MiejscowoscPoczty");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyNazwa",
+                "IX_DaneSzukajPodmiotyNazwa",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Nazwa");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyNip",
+                "IX_DaneSzukajPodmiotyNip",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Nip");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyPowiat",
+                "IX_DaneSzukajPodmiotyPowiat",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Powiat");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyRegon",
+                "IX_DaneSzukajPodmiotyRegon",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Regon");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotySilosID",
+                "IX_DaneSzukajPodmiotySilosID",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "SilosID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyTyp",
+                "IX_DaneSzukajPodmiotyTyp",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Typ");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyUlica",
+                "IX_DaneSzukajPodmiotyUlica",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Ulica");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyUniqueIdentifierOfTheLoggedInUser",
+                "IX_DaneSzukajPodmiotyUniqueIdentifierOfTheLoggedInUser",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "UniqueIdentifierOfTheLoggedInUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyWojewodztwo",
+                "IX_DaneSzukajPodmiotyWojewodztwo",
                 schema: "pagard",
                 table: "DaneSzukajPodmioty",
                 column: "Wojewodztwo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaId",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaId",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrs",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrs",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Krs");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrsy",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaKrsy",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Krsy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaNip",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaNip",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Nip");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaNipy",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaNipy",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Nipy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegon",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegon",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Regon");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony14zn",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony14zn",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Regony14zn");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony9zn",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaRegony9zn",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "Regony9zn");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DaneSzukajPodmiotyParametryWyszukiwaniaUniqueIdentifierOfTheLoggedInUser",
+                "IX_DaneSzukajPodmiotyParametryWyszukiwaniaUniqueIdentifierOfTheLoggedInUser",
                 schema: "pagard",
                 table: "DaneSzukajPodmiotyParametryWyszukiwania",
                 column: "UniqueIdentifierOfTheLoggedInUser");
@@ -210,12 +218,12 @@ namespace PortalApiGusApiRegonData.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DaneSzukajPodmioty",
-                schema: "pagard");
+                "DaneSzukajPodmioty",
+                "pagard");
 
             migrationBuilder.DropTable(
-                name: "DaneSzukajPodmiotyParametryWyszukiwania",
-                schema: "pagard");
+                "DaneSzukajPodmiotyParametryWyszukiwania",
+                "pagard");
         }
     }
 }

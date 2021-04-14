@@ -1,22 +1,28 @@
+#region using
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using log4net;
+using PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport;
 using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
 using UslugaBIRzewnPublVer11Prod;
+
+#endregion
 
 namespace PortalApiGusApiRegonData
 {
     public class DanePobierzPelnyRaport
     {
         /// <summary>
-        /// log4net
+        ///     log4net
         /// </summary>
-        private static readonly log4net.ILog Log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Log4net =
+            Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="daneSzukajPodmiotyResult"></param>
         /// <returns></returns>
@@ -32,8 +38,8 @@ namespace PortalApiGusApiRegonData
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="pKluczUzytkownika"></param>
         /// <returns></returns>
@@ -49,8 +55,10 @@ namespace PortalApiGusApiRegonData
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
-        /// Wyszukaj podmiot spełniający jedno z kryteriów krs krsy nip nipy regon regony14zn regony9zn Metoda przeszukuje bazę regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
+        ///     Wyszukaj podmiot spełniający jedno z kryteriów krs krsy nip nipy regon regony14zn regony9zn Metoda przeszukuje bazę
+        ///     regon w poszukiwaniu rekordów zgodnych z określonymi parametrami wyszukiwania. Rekordy zwracane są w postaci listy.
         /// </summary>
         /// <param name="pKluczUzytkownika">pKluczUzytkownika As String</param>
         /// <param name="krs"></param>
@@ -60,17 +68,26 @@ namespace PortalApiGusApiRegonData
         /// <param name="regon"></param>
         /// <param name="regony14zn"></param>
         /// <param name="regony9zn"></param>
-        /// <returns>[obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList<DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)</returns>
-        public static async Task<string> DanePobierzPelnyRaportAsync(string pKluczUzytkownika, string krs = null, string krsy = null, string nip = null, string nipy = null, string regon = null, string regony14zn = null, string regony9zn = null)
+        /// <returns>
+        ///     [obiekt zwracany przez metodę DaneSzukajPodmioty] DaneSzukajPodmiotyList
+        ///     <DaneSzukajPodmioty> Lista obiektów DaneSzukajPodmioty, lub brak (null)
+        /// </returns>
+        public static async Task<string> DanePobierzPelnyRaportAsync(string pKluczUzytkownika, string krs = null,
+            string krsy = null, string nip = null, string nipy = null, string regon = null, string regony14zn = null,
+            string regony9zn = null)
         {
             try
             {
-                List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList = await DaneSzukajPodmioty.DaneSzukajPodmiotyAsync(pKluczUzytkownika, krs, krsy, nip, nipy, regon, regony14zn, regony9zn);
+                List<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> daneSzukajPodmiotyList =
+                    await DaneSzukajPodmioty.DaneSzukajPodmiotyAsync(pKluczUzytkownika, krs, krsy, nip, nipy, regon,
+                        regony14zn, regony9zn);
                 if (null != daneSzukajPodmiotyList && daneSzukajPodmiotyList.Any())
                 {
                     foreach (Models.DaneSzukajPodmioty.DaneSzukajPodmioty daneSzukajPodmioty in daneSzukajPodmiotyList)
                     {
-                        if (null != daneSzukajPodmioty.Regon && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Regon) && null != daneSzukajPodmioty.Typ && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Typ) && null != daneSzukajPodmioty.SilosID && daneSzukajPodmioty.SilosID > 0)
+                        if (null != daneSzukajPodmioty.Regon && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Regon) &&
+                            null != daneSzukajPodmioty.Typ && !string.IsNullOrWhiteSpace(daneSzukajPodmioty.Typ) &&
+                            null != daneSzukajPodmioty.SilosID && daneSzukajPodmioty.SilosID > 0)
                         {
                             UslugaBIRzewnPublClient uslugaBIRzewnPublClient = await GetClientAsync(pKluczUzytkownika);
                             if (null != uslugaBIRzewnPublClient)
@@ -87,11 +104,19 @@ namespace PortalApiGusApiRegonData
                                 //a) zarejestrowanej w CEIDG(jeśli istnieje) - raport BIR11OsFizycznaDzialalnoscCeidg,
                                 //b) rolniczej(jeśli istnieje) - raport BIR11OsFizycznaDzialalnoscRolnicza,
                                 //c) tzw.pozostałej(jeśli istnieje) - raport BIR11OsFizycznaDzialalnoscPozostala,
-                                DanePobierzPelnyRaportResponse danePobierzPelnyRaportResponse = await uslugaBIRzewnPublClient.DanePobierzPelnyRaportAsync(daneSzukajPodmioty.Regon, "BIR11OsFizycznaDaneOgolne");
-                                if (null != danePobierzPelnyRaportResponse && null != danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult && !string.IsNullOrWhiteSpace(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult))
+                                DanePobierzPelnyRaportResponse danePobierzPelnyRaportResponse =
+                                    await uslugaBIRzewnPublClient.DanePobierzPelnyRaportAsync(daneSzukajPodmioty.Regon,
+                                        "BIR11OsFizycznaDaneOgolne");
+                                if (null != danePobierzPelnyRaportResponse &&
+                                    null != danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult &&
+                                    !string.IsNullOrWhiteSpace(danePobierzPelnyRaportResponse
+                                        .DanePobierzPelnyRaportResult))
                                 {
-                                    Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList osFizycznaDaneOgolneList = UslugaBIRzewnPubl.DeserializeXml<Models.DanePobierzPelnyRaport.OsFizycznaDaneOgolneList>(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
-                                    if (null != osFizycznaDaneOgolneList && null != osFizycznaDaneOgolneList.Dane && osFizycznaDaneOgolneList.Dane.Count > 0)
+                                    OsFizycznaDaneOgolneList osFizycznaDaneOgolneList =
+                                        UslugaBIRzewnPubl.DeserializeXml<OsFizycznaDaneOgolneList>(
+                                            danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
+                                    if (null != osFizycznaDaneOgolneList && null != osFizycznaDaneOgolneList.Dane &&
+                                        osFizycznaDaneOgolneList.Dane.Count > 0)
                                     {
                                         Log4net.Debug(danePobierzPelnyRaportResponse.DanePobierzPelnyRaportResult);
                                         Log4net.Debug(osFizycznaDaneOgolneList.Dane.FirstOrDefault().Imie1);
@@ -101,6 +126,7 @@ namespace PortalApiGusApiRegonData
                         }
                     }
                 }
+
                 return null;
             }
             catch (Exception e)

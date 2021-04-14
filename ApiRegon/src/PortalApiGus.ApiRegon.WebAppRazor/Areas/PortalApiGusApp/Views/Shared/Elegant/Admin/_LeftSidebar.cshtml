@@ -1,0 +1,33 @@
+﻿@{ var title = "Portal Api Gus, Api Regon, Wyszukiwanie podmiotów"; }
+
+<li>
+    <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false" title="Portal Api Gus">
+        <i class="has-arrow ti-layout-grid2"></i>
+        <span class="hide-menu">
+            <small>Portal Api Gus, Api Regon</small><br/>
+            <small>Wyszukiwanie podmiotów</small>
+        </span>
+    </a>
+    <ul aria-expanded="false" class="collapse">
+        <li>
+            <a href="@Url.Action("Index", "DaneSzukajPodmioty", new {Area = "PortalApiGusApp"})" title="@title, Historia wyszukiwania">
+                <small class="hide-menu">Historia wyszukiwania</small><i class="ti-time p-t-5"></i>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Route", "DaneSzukajPodmioty", new {Area = "PortalApiGusApp"})" title="@title, Dostępne akcje">
+                <small class="hide-menu">Lista dostępnych tras</small><i class="ti-link p-t-5"></i>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("CoreAppSettings", "DaneSzukajPodmioty", new {Area = "PortalApiGusApp"})" title="@title, Ustawienia aplikacji">
+                <small class="hide-menu">Ustawienia aplikacji</small><i class="ti-settings p-t-5"></i>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("DataBaseAppSettings", "DaneSzukajPodmioty", new {Area = "PortalApiGusApp"})" title="@title, Ustawienia bazy danych">
+                <small class="hide-menu">Ustawienia bazy danych</small><i class="ti-settings p-t-5"></i>
+            </a>
+        </li>
+    </ul>
+</li>

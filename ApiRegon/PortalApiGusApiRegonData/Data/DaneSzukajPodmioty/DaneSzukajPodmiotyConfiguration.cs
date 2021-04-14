@@ -1,42 +1,35 @@
+#region using
 
-/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (netstandard2.1)”
-Przed:
-using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
-Po:
-using Microsoft.EntityFrameworkCore;
-*/
-
-/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (net5.0)”
-Przed:
-using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
-Po:
-using Microsoft.EntityFrameworkCore;
-*/
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
 
 namespace PortalApiGusApiRegonData.Data.DaneSzukajPodmioty
 {
     #region internal class DaneSzukajPodmiotyConfiguration : IEntityTypeConfiguration<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>
+
     /// <summary>
-    /// Klasa konfiguracji dodatkowych ustawień bazy danych dla modelu encji Models.DaneSzukajPodmioty.DaneSzukajPodmioty
-    /// Configuration class for additional database settings for the entity model Models.DataSearch Entities.DataSearchAutons
+    ///     Klasa konfiguracji dodatkowych ustawień bazy danych dla modelu encji Models.DaneSzukajPodmioty.DaneSzukajPodmioty
+    ///     Configuration class for additional database settings for the entity model Models.DataSearch
+    ///     Entities.DataSearchAutons
     /// </summary>
-    internal class DaneSzukajPodmiotyConfiguration : IEntityTypeConfiguration<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>
+    internal class
+        DaneSzukajPodmiotyConfiguration : IEntityTypeConfiguration<Models.DaneSzukajPodmioty.DaneSzukajPodmioty>
     {
         /// <summary>
-        /// Konfiguruj encję DaneSzukajPodmioty
-        /// Configure the DataSearch Entities entity
+        ///     Konfiguruj encję DaneSzukajPodmioty
+        ///     Configure the DataSearch Entities entity
         /// </summary>
         /// <param name="builder">
-        /// Kreator typów jednostek jako EntityTypeBuilder dla modelu Models.DaneSzukajPodmioty.DaneSzukajPodmioty
-        /// Entity Type Creator as EntityTypeBuilder for Models.DataSearch Entities.DataSearch Entities
+        ///     Kreator typów jednostek jako EntityTypeBuilder dla modelu Models.DaneSzukajPodmioty.DaneSzukajPodmioty
+        ///     Entity Type Creator as EntityTypeBuilder for Models.DataSearch Entities.DataSearch Entities
         /// </param>
         public void Configure(EntityTypeBuilder<Models.DaneSzukajPodmioty.DaneSzukajPodmioty> builder)
         {
             builder.HasIndex(e => e.Id)
                 .HasDatabaseName("IX_DaneSzukajPodmiotyId")
-                .IsUnique(true);
+                .IsUnique();
 
             builder.Property(e => e.Id)
                 .HasDefaultValueSql("(newsequentialid())");
@@ -97,5 +90,6 @@ namespace PortalApiGusApiRegonData.Data.DaneSzukajPodmioty
                 .HasDefaultValueSql("(getdate())");
         }
     }
+
     #endregion
 }

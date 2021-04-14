@@ -1,0 +1,318 @@
+[
+  {
+    "Id": "42a7b733-6e18-d0fb-0d06-7c4ec3f969c1",
+    "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+    "DataUtworzenia": "2021-03-23T15:16:47.1640734+01:00",
+    "DaneSzukajPodmiotyMessageInspectorCollection": [
+      {
+        "Id": "2981285f-fd6e-2559-360e-ad892c43f50b",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj</a:Action><a:MessageID>urn:uuid:92437ec6-17de-4286-9c17-6904f4802650</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><Zaloguj xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pKluczUzytkownika>b65986a6300044a0b7fb</pKluczUzytkownika></Zaloguj></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":0}",
+        "DataUtworzenia": "2021-03-23T15:16:47.1654819+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "8be641bc-23ea-cf61-0018-d02636846110",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/ZalogujResponse</a:Action><a:RelatesTo>urn:uuid:92437ec6-17de-4286-9c17-6904f4802650</a:RelatesTo></s:Header><s:Body><ZalogujResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><ZalogujResult>fc5yh8gh8v755x5398f6</ZalogujResult></ZalogujResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1655188+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "6e4318df-294c-0714-a26e-0b7f3866001c",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false,\"httpRequest\":{\"Headers\":[\"sid\"],\"Method\":\"POST\",\"QueryString\":\"\",\"SuppressEntityBody\":false,\"HttpRequestMessage\":null}},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty</a:Action><a:MessageID>urn:uuid:de2cbbe8-fe2f-456d-b112-f9b47602c7dd</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><DaneSzukajPodmioty xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pParametryWyszukiwania xmlns:d4p1=\"http://CIS/BIR/PUBL/2014/07/DataContract\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><d4p1:Krs i:nil=\"true\" /><d4p1:Krsy>0000349095,0000388712</d4p1:Krsy><d4p1:Nip i:nil=\"true\" /><d4p1:Nipy i:nil=\"true\" /><d4p1:Regon i:nil=\"true\" /><d4p1:Regony14zn i:nil=\"true\" /><d4p1:Regony9zn i:nil=\"true\" /></pParametryWyszukiwania></DaneSzukajPodmioty></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":2}",
+        "DataUtworzenia": "2021-03-23T15:16:47.1655496+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "7c6ec692-6f75-4cda-13ff-dc9745caa149",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmiotyResponse</a:Action><a:RelatesTo>urn:uuid:de2cbbe8-fe2f-456d-b112-f9b47602c7dd</a:RelatesTo></s:Header><s:Body><DaneSzukajPodmiotyResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><DaneSzukajPodmiotyResult><root>\r\n  <dane>\r\n    <Regon>150122758</Regon>\r\n    <Nip>5731029185</Nip>\r\n    <StatusNip />\r\n    <Nazwa>ISK SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</Nazwa>\r\n    <Wojewodztwo>ŚLĄSKIE</Wojewodztwo>\r\n    <Powiat>Częstochowa</Powiat>\r\n    <Gmina>Częstochowa</Gmina>\r\n    <Miejscowosc>Częstochowa</Miejscowosc>\r\n    <KodPocztowy>42-200</KodPocztowy>\r\n    <Ulica>ul. Pułaskiego</Ulica>\r\n    <NrNieruchomosci>25</NrNieruchomosci>\r\n    <NrLokalu />\r\n    <Typ>P</Typ>\r\n    <SilosID>6</SilosID>\r\n    <DataZakonczeniaDzialalnosci />\r\n    <MiejscowoscPoczty>Częstochowa</MiejscowoscPoczty>\r\n  </dane>\r\n  <dane>\r\n    <Regon>080531502</Regon>\r\n    <Nip>9291839113</Nip>\r\n    <StatusNip />\r\n    <Nazwa>\"W.P.\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ W LIKWIDACJI</Nazwa>\r\n    <Wojewodztwo>WARMIŃSKO-MAZURSKIE</Wojewodztwo>\r\n    <Powiat>kętrzyński</Powiat>\r\n    <Gmina>Kętrzyn</Gmina>\r\n    <Miejscowosc>Kętrzyn</Miejscowosc>\r\n    <KodPocztowy>11-400</KodPocztowy>\r\n    <Ulica>ul. Bolesława Chrobrego</Ulica>\r\n    <NrNieruchomosci>5</NrNieruchomosci>\r\n    <NrLokalu />\r\n    <Typ>P</Typ>\r\n    <SilosID>6</SilosID>\r\n    <DataZakonczeniaDzialalnosci>2020-10-05</DataZakonczeniaDzialalnosci>\r\n    <MiejscowoscPoczty>Kętrzyn</MiejscowoscPoczty>\r\n  </dane>\r\n</root></DaneSzukajPodmiotyResult></DaneSzukajPodmiotyResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1655766+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "022b7c05-f37e-fda1-464e-013c1a81cf7b",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Wyloguj\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false,\"httpRequest\":{\"Headers\":[\"sid\"],\"Method\":\"POST\",\"QueryString\":\"\",\"SuppressEntityBody\":false,\"HttpRequestMessage\":null}},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Wyloguj</a:Action><a:MessageID>urn:uuid:0226e676-dee8-4a6e-bbb4-d4034d3a2247</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><Wyloguj xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pIdentyfikatorSesji>fc5yh8gh8v755x5398f6</pIdentyfikatorSesji></Wyloguj></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":2}",
+        "DataUtworzenia": "2021-03-23T15:16:47.165603+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "7a73c8c3-8e54-86aa-96cf-d3040b7003ef",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/WylogujResponse</a:Action><a:RelatesTo>urn:uuid:0226e676-dee8-4a6e-bbb4-d4034d3a2247</a:RelatesTo></s:Header><s:Body><WylogujResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><WylogujResult>true</WylogujResult></WylogujResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1656229+01:00",
+        "DataModyfikacji": null
+      }
+    ],
+    "ParametryWyszukiwaniaSHA512": null,
+    "Regon": "150122758",
+    "Nip": "5731029185",
+    "StatusNip": "",
+    "Nazwa": "ISK SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "Wojewodztwo": "ŚLĄSKIE",
+    "Powiat": "Częstochowa",
+    "Gmina": "Częstochowa",
+    "Miejscowosc": "Częstochowa",
+    "KodPocztowy": "42-200",
+    "Ulica": "ul. Pułaskiego",
+    "NrNieruchomosci": "25",
+    "NrLokalu": "",
+    "Typ": "P",
+    "SilosID": 6,
+    "DataZakonczeniaDzialalnosci": "",
+    "DataZakonczeniaDzialalnosciJakoData": null,
+    "MiejscowoscPoczty": "Częstochowa",
+    "DaneSzukajPodmiotyParametryWyszukiwaniaId": "0ed056f6-e0ba-9c20-da77-8cb60a06e3a1",
+    "DaneSzukajPodmiotyParametryWyszukiwania": {
+      "Id": "0ed056f6-e0ba-9c20-da77-8cb60a06e3a1",
+      "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+      "SHA512": null,
+      "Regon": null,
+      "Nip": null,
+      "Krs": null,
+      "Nipy": null,
+      "Regony14zn": null,
+      "Regony9zn": null,
+      "Krsy": "0000349095,0000388712",
+      "DaneSzukajPodmioty": null,
+      "DataUtworzenia": "2021-03-23T15:16:47.1769813+01:00",
+      "DataModyfikacji": null
+    },
+    "DaneSzukajPodmiotyKomunikatyOBledachId": "a596cbae-ea5e-8c19-909b-8fc969ccfc97",
+    "DaneSzukajPodmiotyKomunikatyOBledach": {
+      "Id": "a596cbae-ea5e-8c19-909b-8fc969ccfc97",
+      "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+      "DataUtworzenia": "2021-03-23T15:16:47.1809984+01:00",
+      "DataModyfikacji": null,
+      "ErrorCode": null,
+      "ErrorMessagePl": null,
+      "ErrorMessageEn": null,
+      "Regon": "150122758",
+      "Nip": "5731029185",
+      "Krs": null,
+      "Nipy": null,
+      "Regony14zn": null,
+      "Regony9zn": null,
+      "Krsy": null
+    },
+    "DataModyfikacji": null
+  },
+  {
+    "Id": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+    "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+    "DataUtworzenia": "2021-03-23T15:16:47.1841741+01:00",
+    "DaneSzukajPodmiotyMessageInspectorCollection": [
+      {
+        "Id": "2981285f-fd6e-2559-360e-ad892c43f50b",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj</a:Action><a:MessageID>urn:uuid:92437ec6-17de-4286-9c17-6904f4802650</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><Zaloguj xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pKluczUzytkownika>b65986a6300044a0b7fb</pKluczUzytkownika></Zaloguj></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":0}",
+        "DataUtworzenia": "2021-03-23T15:16:47.1654819+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "8be641bc-23ea-cf61-0018-d02636846110",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/ZalogujResponse</a:Action><a:RelatesTo>urn:uuid:92437ec6-17de-4286-9c17-6904f4802650</a:RelatesTo></s:Header><s:Body><ZalogujResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><ZalogujResult>fc5yh8gh8v755x5398f6</ZalogujResult></ZalogujResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1655188+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "6e4318df-294c-0714-a26e-0b7f3866001c",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false,\"httpRequest\":{\"Headers\":[\"sid\"],\"Method\":\"POST\",\"QueryString\":\"\",\"SuppressEntityBody\":false,\"HttpRequestMessage\":null}},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty</a:Action><a:MessageID>urn:uuid:de2cbbe8-fe2f-456d-b112-f9b47602c7dd</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><DaneSzukajPodmioty xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pParametryWyszukiwania xmlns:d4p1=\"http://CIS/BIR/PUBL/2014/07/DataContract\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><d4p1:Krs i:nil=\"true\" /><d4p1:Krsy>0000349095,0000388712</d4p1:Krsy><d4p1:Nip i:nil=\"true\" /><d4p1:Nipy i:nil=\"true\" /><d4p1:Regon i:nil=\"true\" /><d4p1:Regony14zn i:nil=\"true\" /><d4p1:Regony9zn i:nil=\"true\" /></pParametryWyszukiwania></DaneSzukajPodmioty></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":2}",
+        "DataUtworzenia": "2021-03-23T15:16:47.1655496+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "7c6ec692-6f75-4cda-13ff-dc9745caa149",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmiotyResponse</a:Action><a:RelatesTo>urn:uuid:de2cbbe8-fe2f-456d-b112-f9b47602c7dd</a:RelatesTo></s:Header><s:Body><DaneSzukajPodmiotyResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><DaneSzukajPodmiotyResult><root>\r\n  <dane>\r\n    <Regon>150122758</Regon>\r\n    <Nip>5731029185</Nip>\r\n    <StatusNip />\r\n    <Nazwa>ISK SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</Nazwa>\r\n    <Wojewodztwo>ŚLĄSKIE</Wojewodztwo>\r\n    <Powiat>Częstochowa</Powiat>\r\n    <Gmina>Częstochowa</Gmina>\r\n    <Miejscowosc>Częstochowa</Miejscowosc>\r\n    <KodPocztowy>42-200</KodPocztowy>\r\n    <Ulica>ul. Pułaskiego</Ulica>\r\n    <NrNieruchomosci>25</NrNieruchomosci>\r\n    <NrLokalu />\r\n    <Typ>P</Typ>\r\n    <SilosID>6</SilosID>\r\n    <DataZakonczeniaDzialalnosci />\r\n    <MiejscowoscPoczty>Częstochowa</MiejscowoscPoczty>\r\n  </dane>\r\n  <dane>\r\n    <Regon>080531502</Regon>\r\n    <Nip>9291839113</Nip>\r\n    <StatusNip />\r\n    <Nazwa>\"W.P.\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ W LIKWIDACJI</Nazwa>\r\n    <Wojewodztwo>WARMIŃSKO-MAZURSKIE</Wojewodztwo>\r\n    <Powiat>kętrzyński</Powiat>\r\n    <Gmina>Kętrzyn</Gmina>\r\n    <Miejscowosc>Kętrzyn</Miejscowosc>\r\n    <KodPocztowy>11-400</KodPocztowy>\r\n    <Ulica>ul. Bolesława Chrobrego</Ulica>\r\n    <NrNieruchomosci>5</NrNieruchomosci>\r\n    <NrLokalu />\r\n    <Typ>P</Typ>\r\n    <SilosID>6</SilosID>\r\n    <DataZakonczeniaDzialalnosci>2020-10-05</DataZakonczeniaDzialalnosci>\r\n    <MiejscowoscPoczty>Kętrzyn</MiejscowoscPoczty>\r\n  </dane>\r\n</root></DaneSzukajPodmiotyResult></DaneSzukajPodmiotyResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1655766+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "022b7c05-f37e-fda1-464e-013c1a81cf7b",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage": null,
+        "AfterReceiveReplyMessageAsStringXml": null,
+        "AfterReceiveReplyCorrelationState": null,
+        "BeforeSendRequestMessage":
+          "{\"IsFault\":false,\"IsEmpty\":false,\"Headers\":[{\"Action\":\"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Wyloguj\",\"MustUnderstand\":true,\"DictionaryName\":{\"Dictionary\":{},\"Key\":5,\"Value\":\"Action\"},\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"DictionaryName\":{\"Dictionary\":{},\"Key\":13,\"Value\":\"MessageID\"},\"MessageId\":{\"CharArrayLength\":45,\"IsGuid\":true},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"MessageID\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false},{\"ReplyTo\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"DictionaryName\":{\"Dictionary\":{},\"Key\":22,\"Value\":\"ReplyTo\"},\"MustUnderstand\":false,\"DictionaryNamespace\":{\"Dictionary\":{},\"Key\":3,\"Value\":\"http://www.w3.org/2005/08/addressing\"},\"Name\":\"ReplyTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"Actor\":\"\",\"IsReferenceParameter\":false,\"Relay\":false}],\"Properties\":{\"AllowOutputBatching\":false,\"httpRequest\":{\"Headers\":[\"sid\"],\"Method\":\"POST\",\"QueryString\":\"\",\"SuppressEntityBody\":false,\"HttpRequestMessage\":null}},\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"State\":0}",
+        "BeforeSendRequestMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:a=\"http://www.w3.org/2005/08/addressing\" xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Wyloguj</a:Action><a:MessageID>urn:uuid:0226e676-dee8-4a6e-bbb4-d4034d3a2247</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo></s:Header><s:Body><Wyloguj xmlns=\"http://CIS/BIR/PUBL/2014/07\"><pIdentyfikatorSesji>fc5yh8gh8v755x5398f6</pIdentyfikatorSesji></Wyloguj></s:Body></s:Envelope>",
+        "BeforeSendRequestClientChannel":
+          "{\"ListenUri\":null,\"LocalAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":true,\"IsNone\":false,\"Uri\":\"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous\"},\"OperationTimeout\":\"00:01:00\",\"RemoteAddress\":{\"Headers\":[],\"Identity\":null,\"IsAnonymous\":false,\"IsNone\":false,\"Uri\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\"},\"Via\":\"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc\",\"State\":2}",
+        "DataUtworzenia": "2021-03-23T15:16:47.165603+01:00",
+        "DataModyfikacji": null
+      },
+      {
+        "Id": "7a73c8c3-8e54-86aa-96cf-d3040b7003ef",
+        "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+        "DaneSzukajPodmiotyId": "1dc5e423-353d-577e-9ac3-f527a3ca9de1",
+        "DaneSzukajPodmioty": null,
+        "AfterReceiveReplyMessage":
+          "{\"Headers\":[{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"Action\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":true,\"Relay\":false},{\"Actor\":\"\",\"IsReferenceParameter\":false,\"Name\":\"RelatesTo\",\"Namespace\":\"http://www.w3.org/2005/08/addressing\",\"MustUnderstand\":false,\"Relay\":false}],\"Version\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}},\"Properties\":{\"Via\":\"http://www.w3.org/2005/08/addressing/anonymous\",\"Encoder\":{\"ContentType\":\"application/soap+xml; charset=utf-8\",\"MaxWritePoolSize\":16,\"MaxReadPoolSize\":64,\"ReaderQuotas\":{\"MaxStringContentLength\":8192,\"MaxArrayLength\":16384,\"MaxBytesPerRead\":4096,\"MaxDepth\":32,\"MaxNameTableCharCount\":16384,\"ModifiedQuotas\":0},\"MediaType\":\"application/soap+xml\",\"MessageVersion\":{\"Addressing\":{},\"Envelope\":{\"NextDestinationActorValue\":\"http://www.w3.org/2003/05/soap-envelope/role/next\"}}},\"httpResponse\":{\"Headers\":[\"Server\",\"MIME-Version\",\"X-Powered-By\",\"Date\",\"Content-Type\",\"Content-Length\"],\"StatusCode\":200,\"StatusDescription\":\"OK\",\"SuppressEntityBody\":false,\"SuppressPreamble\":false,\"HttpResponseMessage\":null}},\"IsEmpty\":false,\"IsFault\":false,\"State\":0}",
+        "AfterReceiveReplyMessageAsStringXml":
+          "<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:a=\"http://www.w3.org/2005/08/addressing\"><s:Header><a:Action s:mustUnderstand=\"1\">http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/WylogujResponse</a:Action><a:RelatesTo>urn:uuid:0226e676-dee8-4a6e-bbb4-d4034d3a2247</a:RelatesTo></s:Header><s:Body><WylogujResponse xmlns=\"http://CIS/BIR/PUBL/2014/07\"><WylogujResult>true</WylogujResult></WylogujResponse></s:Body></s:Envelope>",
+        "AfterReceiveReplyCorrelationState": "null",
+        "BeforeSendRequestMessage": null,
+        "BeforeSendRequestMessageAsStringXml": null,
+        "BeforeSendRequestClientChannel": null,
+        "DataUtworzenia": "2021-03-23T15:16:47.1656229+01:00",
+        "DataModyfikacji": null
+      }
+    ],
+    "ParametryWyszukiwaniaSHA512": null,
+    "Regon": "080531502",
+    "Nip": "9291839113",
+    "StatusNip": "",
+    "Nazwa": "\"W.P.\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ W LIKWIDACJI",
+    "Wojewodztwo": "WARMIŃSKO-MAZURSKIE",
+    "Powiat": "kętrzyński",
+    "Gmina": "Kętrzyn",
+    "Miejscowosc": "Kętrzyn",
+    "KodPocztowy": "11-400",
+    "Ulica": "ul. Bolesława Chrobrego",
+    "NrNieruchomosci": "5",
+    "NrLokalu": "",
+    "Typ": "P",
+    "SilosID": 6,
+    "DataZakonczeniaDzialalnosci": "2020-10-05",
+    "DataZakonczeniaDzialalnosciJakoData": "2020-10-05T00:00:00",
+    "MiejscowoscPoczty": "Kętrzyn",
+    "DaneSzukajPodmiotyParametryWyszukiwaniaId": "0ed056f6-e0ba-9c20-da77-8cb60a06e3a1",
+    "DaneSzukajPodmiotyParametryWyszukiwania": {
+      "Id": "0ed056f6-e0ba-9c20-da77-8cb60a06e3a1",
+      "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+      "SHA512": null,
+      "Regon": null,
+      "Nip": null,
+      "Krs": null,
+      "Nipy": null,
+      "Regony14zn": null,
+      "Regony9zn": null,
+      "Krsy": "0000349095,0000388712",
+      "DaneSzukajPodmioty": null,
+      "DataUtworzenia": "2021-03-23T15:16:47.1769813+01:00",
+      "DataModyfikacji": null
+    },
+    "DaneSzukajPodmiotyKomunikatyOBledachId": "a596cbae-ea5e-8c19-909b-8fc969ccfc97",
+    "DaneSzukajPodmiotyKomunikatyOBledach": {
+      "Id": "a596cbae-ea5e-8c19-909b-8fc969ccfc97",
+      "UniqueIdentifierOfTheLoggedInUser": "piotr.paul",
+      "DataUtworzenia": "2021-03-23T15:16:47.1809984+01:00",
+      "DataModyfikacji": null,
+      "ErrorCode": null,
+      "ErrorMessagePl": null,
+      "ErrorMessageEn": null,
+      "Regon": "150122758",
+      "Nip": "5731029185",
+      "Krs": null,
+      "Nipy": null,
+      "Regony14zn": null,
+      "Regony9zn": null,
+      "Krsy": null
+    },
+    "DataModyfikacji": null
+  }
+]

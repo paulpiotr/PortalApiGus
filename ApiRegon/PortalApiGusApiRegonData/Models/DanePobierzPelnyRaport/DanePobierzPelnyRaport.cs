@@ -1,6 +1,6 @@
-﻿namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
+namespace PortalApiGusApiRegonData.Models.DanePobierzPelnyRaport
 {
-    public partial class DanePobierzPelnyRaport
+    public class DanePobierzPelnyRaport
     {
         public DaneSzukajPodmioty.DaneSzukajPodmioty DaneSzukajPodmioty { get; set; }
         public OsFizycznaDaneOgolne OsFizycznaDaneOgolne { get; set; }

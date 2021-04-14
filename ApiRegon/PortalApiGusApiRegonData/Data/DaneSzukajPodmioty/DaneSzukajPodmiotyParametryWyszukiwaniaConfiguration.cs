@@ -1,42 +1,40 @@
+#region using
 
-/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (netstandard2.1)”
-Przed:
-using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
-Po:
-using Microsoft.EntityFrameworkCore;
-*/
-
-/* Niescalona zmiana z projektu „PortalApiGusApiRegonData (net5.0)”
-Przed:
-using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
-Po:
-using Microsoft.EntityFrameworkCore;
-*/
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PortalApiGusApiRegonData.Models.DaneSzukajPodmioty;
+
+#endregion
 
 namespace PortalApiGusApiRegonData.Data.DaneSzukajPodmioty
 {
     #region internal class DaneSzukajPodmiotyParametryWyszukiwaniaConfiguration : IEntityTypeConfiguration<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania>
+
     /// <summary>
-    /// Klasa konfiguracji dodatkowych ustawień bazy danych dla modelu encji Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
-    /// Configuration class for additional database settings for the entity model Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
+    ///     Klasa konfiguracji dodatkowych ustawień bazy danych dla modelu encji
+    ///     Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
+    ///     Configuration class for additional database settings for the entity model
+    ///     Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
     /// </summary>
-    internal class DaneSzukajPodmiotyParametryWyszukiwaniaConfiguration : IEntityTypeConfiguration<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania>
+    internal class
+        DaneSzukajPodmiotyParametryWyszukiwaniaConfiguration : IEntityTypeConfiguration<
+            DaneSzukajPodmiotyParametryWyszukiwania>
     {
         /// <summary>
-        /// Konfiguruj encję DaneSzukajPodmiotyParametryWyszukiwania
-        /// Configure the DataSearch Entities entity
+        ///     Konfiguruj encję DaneSzukajPodmiotyParametryWyszukiwania
+        ///     Configure the DataSearch Entities entity
         /// </summary>
         /// <param name="builder">
-        /// Kreator typów jednostek jako EntityTypeBuilder dla modelu Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
-        /// Entity Type Creator as EntityTypeBuilder for Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania Entities
+        ///     Kreator typów jednostek jako EntityTypeBuilder dla modelu
+        ///     Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
+        ///     Entity Type Creator as EntityTypeBuilder for Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania
+        ///     Entities
         /// </param>
-        public void Configure(EntityTypeBuilder<Models.DaneSzukajPodmioty.DaneSzukajPodmiotyParametryWyszukiwania> builder)
+        public void Configure(EntityTypeBuilder<DaneSzukajPodmiotyParametryWyszukiwania> builder)
         {
             builder.HasIndex(e => e.Id)
                 .HasDatabaseName("IX_DaneSzukajPodmiotyParametryWyszukiwaniaId")
-                .IsUnique(true);
+                .IsUnique();
 
             builder.Property(e => e.Id)
                 .HasDefaultValueSql("(newsequentialid())");
@@ -77,5 +75,6 @@ namespace PortalApiGusApiRegonData.Data.DaneSzukajPodmioty
                 .HasDefaultValueSql("(getdate())");
         }
     }
+
     #endregion
 }

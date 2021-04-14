@@ -1,0 +1,47 @@
+2021-03-19 22:00:50,559 INFO : New BeforeSendRequest
+2021-03-19 22:00:50,569 DEBUG: virtual BeforeSendRequest
+2021-03-19 22:00:50,735 DEBUG: {"IsFault":false,"IsEmpty":false,"Headers":[{"Action":"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj","MustUnderstand":true,"DictionaryName":{"Dictionary":{},"Key":5,"Value":"Action"},"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"Action","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false},{"DictionaryName":{"Dictionary":{},"Key":13,"Value":"MessageID"},"MessageId":{"CharArrayLength":45,"IsGuid":true},"MustUnderstand":false,"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"MessageID","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false},{"ReplyTo":{"Headers":[],"Identity":null,"IsAnonymous":true,"IsNone":false,"Uri":"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous"},"DictionaryName":{"Dictionary":{},"Key":22,"Value":"ReplyTo"},"MustUnderstand":false,"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"ReplyTo","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false}],"Properties":{"AllowOutputBatching":false},"Version":{"Addressing":{},"Envelope":{"NextDestinationActorValue":"http://www.w3.org/2003/05/soap-envelope/role/next"}},"State":3}
+2021-03-19 22:00:50,742 DEBUG: {"ListenUri":null,"LocalAddress":{"Headers":[],"Identity":null,"IsAnonymous":true,"IsNone":false,"Uri":"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous"},"OperationTimeout":"00:01:00","RemoteAddress":{"Headers":[],"Identity":null,"IsAnonymous":false,"IsNone":false,"Uri":"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc"},"Via":"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc","State":0}
+2021-03-19 22:00:51,117 INFO : Override AfterReceiveReply
+2021-03-19 22:00:51,153 ERROR: System.InvalidOperationException: This message cannot support the operation because it has been copied.
+   at System.ServiceModel.Channels.Message.EnsureReadMessageState()
+   at System.ServiceModel.Channels.Message.GetReaderAtBodyContents()
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(MethodCall methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(MethodInfo targetMethod, Object[] args)
+--- End of stack trace from previous location ---
+   at System.Reflection.DispatchProxyGenerator.Invoke(Object[] args)
+   at generatedProxy_1.Zaloguj(ZalogujRequest )
+   at UslugaBIRzewnPublVer11Prod.UslugaBIRzewnPublClient.UslugaBIRzewnPublVer11Prod.IUslugaBIRzewnPubl.Zaloguj(ZalogujRequest request) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Connected Services\UslugaBIRzewnPublVer11Prod\Reference.cs:line 505
+   at UslugaBIRzewnPublVer11Prod.UslugaBIRzewnPublClient.Zaloguj(String pKluczUzytkownika) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Connected Services\UslugaBIRzewnPublVer11Prod\Reference.cs:line 512
+   at PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod.UslugaBIRzewnPublClientService.Zaloguj(String pKluczUzytkownika) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Services\UslugaBIRzewnPublVer11Prod\UslugaBIRzewnPublClientService.cs:line 201
+2021-03-19 22:00:51,177 INFO : New BeforeSendRequest
+2021-03-19 22:00:51,177 DEBUG: virtual BeforeSendRequest
+2021-03-19 22:00:51,177 DEBUG: {"IsFault":false,"IsEmpty":false,"Headers":[{"Action":"http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty","MustUnderstand":true,"DictionaryName":{"Dictionary":{},"Key":5,"Value":"Action"},"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"Action","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false},{"DictionaryName":{"Dictionary":{},"Key":13,"Value":"MessageID"},"MessageId":{"CharArrayLength":45,"IsGuid":true},"MustUnderstand":false,"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"MessageID","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false},{"ReplyTo":{"Headers":[],"Identity":null,"IsAnonymous":true,"IsNone":false,"Uri":"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous"},"DictionaryName":{"Dictionary":{},"Key":22,"Value":"ReplyTo"},"MustUnderstand":false,"DictionaryNamespace":{"Dictionary":{},"Key":3,"Value":"http://www.w3.org/2005/08/addressing"},"Name":"ReplyTo","Namespace":"http://www.w3.org/2005/08/addressing","Actor":"","IsReferenceParameter":false,"Relay":false}],"Properties":{"AllowOutputBatching":false},"Version":{"Addressing":{},"Envelope":{"NextDestinationActorValue":"http://www.w3.org/2003/05/soap-envelope/role/next"}},"State":3}
+2021-03-19 22:00:51,177 DEBUG: {"ListenUri":null,"LocalAddress":{"Headers":[],"Identity":null,"IsAnonymous":true,"IsNone":false,"Uri":"http://schemas.microsoft.com/2005/12/ServiceModel/Addressing/Anonymous"},"OperationTimeout":"00:01:00","RemoteAddress":{"Headers":[],"Identity":null,"IsAnonymous":false,"IsNone":false,"Uri":"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc"},"Via":"https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc","State":2}
+2021-03-19 22:00:51,232 INFO : Override AfterReceiveReply
+2021-03-19 22:00:51,233 ERROR: System.InvalidOperationException: This message cannot support the operation because it has been copied.
+   at System.ServiceModel.Channels.Message.EnsureReadMessageState()
+   at System.ServiceModel.Channels.Message.GetReaderAtBodyContents()
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(MethodCall methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(MethodInfo targetMethod, Object[] args)
+--- End of stack trace from previous location ---
+   at System.Reflection.DispatchProxyGenerator.Invoke(Object[] args)
+   at generatedProxy_1.DaneSzukajPodmioty(DaneSzukajPodmiotyRequest )
+   at UslugaBIRzewnPublVer11Prod.UslugaBIRzewnPublClient.UslugaBIRzewnPublVer11Prod.IUslugaBIRzewnPubl.DaneSzukajPodmioty(DaneSzukajPodmiotyRequest request) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Connected Services\UslugaBIRzewnPublVer11Prod\Reference.cs:line 559
+   at UslugaBIRzewnPublVer11Prod.UslugaBIRzewnPublClient.DaneSzukajPodmioty(ParametryWyszukiwania pParametryWyszukiwania) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Connected Services\UslugaBIRzewnPublVer11Prod\Reference.cs:line 566
+   at PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod.DaneSzukajPodmiotyService.DaneSzukajPodmiotyAsXmlString(String pKluczUzytkownika, Boolean canTrackRequests, String krs, String krsy, String nip, String nipy, String regon, String regony14Zn, String regony9Zn) in D:\Praca\NetCoreDev\PortalApiGus\ApiRegon\src\PortalApiGus.ApiRegon.Core\Services\UslugaBIRzewnPublVer11Prod\DaneSzukajPodmiotyService.cs:line 68
+ala, ala
+ola, ola
+New Guid is 1ce7f460-c551-4f23-9d2b-fb4d45566a60
