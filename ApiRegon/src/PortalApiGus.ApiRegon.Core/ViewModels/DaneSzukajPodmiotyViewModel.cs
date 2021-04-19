@@ -139,7 +139,7 @@ namespace PortalApiGus.ApiRegon.Core.ViewModels
 
         #endregion
 
-        #region private IEnumerable<Models.FileImportFromIcasa>; public IEnumerable<Models.FileImportFromIcasa>
+        #region private IEnumerable<DaneSzukajPodmioty> _daneSzukajPodmiotyEnumerable
 
         private IEnumerable<DaneSzukajPodmioty> _daneSzukajPodmiotyEnumerable;
 

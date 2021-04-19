@@ -194,7 +194,7 @@ namespace PortalApiGus.ApiRegon.Core.Models.DaneSzukajPodmioty
                 if (value != _daneSzukajPodmiotyKomunikatyOBledachId)
                 {
                     _daneSzukajPodmiotyKomunikatyOBledachId = value;
-                    OnPropertyChanged(nameof(DaneSzukajPodmiotyParametryWyszukiwaniaId));
+                    OnPropertyChanged(nameof(DaneSzukajPodmiotyKomunikatyOBledachId));
                 }
             }
         }

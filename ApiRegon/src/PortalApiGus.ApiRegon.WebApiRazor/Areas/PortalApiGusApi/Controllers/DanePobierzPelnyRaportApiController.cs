@@ -64,7 +64,9 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
 
         #region private readonly ICommonDistributedCache _cache
 
+#pragma warning disable 169
         private readonly ICommonDistributedCache _cache;
+#pragma warning restore 169
 
         #endregion
 
@@ -280,6 +282,7 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
         [Authorize(AuthenticationSchemes = "Cookies")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DaneSzukajPodmioty))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
         [HttpGet("{krs}/{canTrackRequests:bool?}/{cacheLifeTime:int?}/{pKluczUzytkownika?}")]
@@ -297,6 +300,7 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
         [Authorize(AuthenticationSchemes = "Cookies")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DaneSzukajPodmiotyResult))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
         [HttpGet("{krsy}/{canTrackRequests:bool?}/{cacheLifeTime:int?}/{pKluczUzytkownika?}")]
