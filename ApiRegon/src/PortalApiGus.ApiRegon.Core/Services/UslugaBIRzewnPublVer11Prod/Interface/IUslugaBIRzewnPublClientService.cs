@@ -83,6 +83,14 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod.Interfa
         ///         If the key is not set, the value is taken from the application settings
         ///     </para>
         /// </param>
+        /// <param name="canTrackRequests">
+        ///     Czy można śledzić żądanie jako bool
+        ///     Can I trace the request as a bool
+        ///     <para>
+        ///         Włącza śledzenie żądań usługi, zapis do bazy danych, log
+        ///         Enables tracing of service requests, writing to the database, log
+        ///     </para>
+        /// </param>
         /// <returns>
         ///     Identyfikator sesji jako string lub null
         ///     Session id as string or null

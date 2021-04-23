@@ -140,8 +140,6 @@ namespace PortalApiGus.ApiRegon.Core.Models.DanePobierzPelnyRaport
         /// </summary>
         [XmlIgnore]
         [JsonProperty(nameof(BIR11JednLokalnaOsFizycznejMessageInspector), Order = 2)]
-        //[InverseProperty("DaneSzukajPodmioty")]
-        //[ForeignKey("DaneSzukajPodmiotyId")]
         [Display(Name = "Inspektor wiadomości usługi",
             Prompt = "Wybierz elementy kolekcji inspektora wiadomości usługi",
             Description =

@@ -28,7 +28,6 @@ namespace PortalApiGus.ApiRegon.Core.Models.DanePobierzPelnyRaport
 
         public BIR11JednLokalnaOsFizycznejMessageInspector()
         {
-
         }
 
         #endregion 
