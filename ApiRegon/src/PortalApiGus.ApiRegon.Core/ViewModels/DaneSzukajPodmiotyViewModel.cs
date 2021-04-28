@@ -70,7 +70,6 @@ namespace PortalApiGus.ApiRegon.Core.ViewModels
 
         private DateTime? _dateOfCreateFrom = new(DateTime.Now.Year, DateTime.Now.Month, 1);
 
-        //[JsonConverter(typeof(JsonDateConverter))]
         [JsonProperty(nameof(DateOfCreateFrom))]
         [Display(Name = "Data utworzenia od", Prompt = "Wpisz lub wybierz datę utworzenia od",
             Description = "Data utworzenia od")]
@@ -96,7 +95,6 @@ namespace PortalApiGus.ApiRegon.Core.ViewModels
         private DateTime? _dateOfCreateTo = new(DateTime.Now.Year, DateTime.Now.Month,
             DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
 
-        //[JsonConverter(typeof(JsonDateConverter))]
         [JsonProperty(nameof(DateOfCreateTo))]
         [Display(Name = "Data utworzenia do", Prompt = "Wpisz lub wybierz datę utworzenia do",
             Description = "Data utworzenia do")]

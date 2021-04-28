@@ -20,12 +20,6 @@
 @{ var windowName = $"{gridName}Window"; }
 
 <div class="container-fluid m-0">
-    @*<div class="row">
-        [@Html.Raw(gridAction)]
-    </div>
-    <div class="row">
-        [@Html.Raw(gridFormAction)]
-    </div>*@
     <div class="row">
         @(Html.Kendo().Breadcrumb()
             .Name(gridBreadCrumb)
@@ -87,7 +81,6 @@
 
 @Html.Script(
     @<script id="@gridToolbarTemplate" type="text/x-kendo-template">
-    <div class="toolbar">
     @(Html.Kendo().PanelBar()
         .Name(gridPanelBar)
         .Events(events => events
@@ -107,7 +100,7 @@
                 .ToClientTemplate()
                 .ToString()
                 )
-                .Content(Html.Raw(@"<div class='col-sm-12 col-md-10 col-lg-6 col-xl-4'>") + Html.Kendo().Form<DaneSzukajPodmiotyViewModel>()
+                .Content(Html.Kendo().Form<DaneSzukajPodmiotyViewModel>()
                     .Name(gridFormName)
                     .HtmlAttributes(new {action = $"{Html.Raw(gridFormAction)}", method = $"{Html.Raw(HttpMethod.Post)}"})
                     .Layout("grid")
@@ -160,30 +153,27 @@
                         @event
                             .Submit("OnFormSubmit")
                             .Clear("OnFormClear"))
-                    .ToClientTemplate().ToString() + Html.Raw("</div>"));
+                    .ToClientTemplate().ToString());
         })
         .ToClientTemplate())
-   </div>
     </script>)
 
 @Html.Script(
     @<script type="text/javascript">
          $(function() {
              try {
-                 const color = $('.k-header').first().css('backgroundColor');
-                 $('.k-form-field').css('margin-top', '-0.75rem');
-                 $('.k-form-buttons').css('margin-top', '-0.75rem');
-                 $('.k-form-legend').hide();
-                 $('.k-widget.k-panelbar').css('border', 'none');
-                 $('.k-content').css('border', 'none');
-                 $('.k-link').css('border', 'none').css('backgroundColor', color);
-                 $('.k-panelbar .k-content').css('border', 'none').css('backgroundColor', color);
-                 $('.k-grid-toolbar').css('border', 'none');
-                 $('.toolbar').css('border', 'none');
-                 $('.toolbar').children().css('border', 'none');
-                 $('.k-form-buttons .k-button.k-primary.k-form-submit').text('Zastosuj filtrowanie');
-                 $('.k-form-buttons .k-button.k-form-clear').text('Wyczyść formularz');
-                 kendo.culture("pl-PL");
+                 const color = window.$('.k-header').first().css('backgroundColor');
+                 window.$('.k-toolbar.k-grid-toolbar .k-form-legend').hide();
+                 window.$('.k-toolbar.k-grid-toolbar .k-widget.k-panelbar').css('border', 'none');
+                 window.$('.k-toolbar.k-grid-toolbar .k-content').css('border', 'none').css('margin-top', '-3rem').css('margin-left', '1rem');
+                 window.$('.k-toolbar.k-grid-toolbar .k-link').css('border', 'none').css('backgroundColor', color);
+                 window.$('.k-toolbar.k-grid-toolbar .k-panelbar .k-content').css('border', 'none').css('backgroundColor', color);
+                 window.$('.k-toolbar.k-grid-toolbar .k-grid-toolbar').css('border', 'none');
+                 window.$('.k-toolbar.k-grid-toolbar .toolbar').css('border', 'none');
+                 window.$('.k-toolbar.k-grid-toolbar .toolbar').children().css('border', 'none');
+                 window.$('.k-toolbar.k-grid-toolbar .k-form-buttons .k-button.k-primary.k-form-submit').text('Zastosuj filtrowanie');
+                 window.$('.k-toolbar.k-grid-toolbar .k-form-buttons .k-button.k-form-clear').text('Wyczyść formularz');
+                 window.kendo.culture("pl-PL");
              } catch (e) {
                  console.log(e);
              }
