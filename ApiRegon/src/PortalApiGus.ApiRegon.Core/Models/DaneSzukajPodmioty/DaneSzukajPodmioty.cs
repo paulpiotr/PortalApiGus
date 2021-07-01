@@ -72,7 +72,7 @@ namespace PortalApiGus.ApiRegon.Core.Models.DaneSzukajPodmioty
         [JsonProperty(nameof(UniqueIdentifierOfTheLoggedInUser), Order = -1)]
         [Display(Name = "Użytkownik",
             Prompt = "Wybierz identyfikator zalogowanego użytkownika",
-            Description = "Identyfikator zalogowanego użytkownika")]
+            Description = "Użytkownik")]
         [MinLength(1)]
         [MaxLength(256)]
         [StringLength(256)]
