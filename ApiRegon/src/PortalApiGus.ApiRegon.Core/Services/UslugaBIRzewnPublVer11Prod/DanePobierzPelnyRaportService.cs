@@ -17,7 +17,7 @@ using UslugaBIRzewnPublVer11Prod;
 
 namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 {
-    public class DanePobierzPelnyRaportService : UslugaBIRzewnPublClientService, IDanePobierzPelnyRaportService
+    public class DanePobierzPelnyRaportService : UslugaBiRzewnPublClientService, IDanePobierzPelnyRaportService
     {
         #region private readonly ICommonDistributedCache _cache
 

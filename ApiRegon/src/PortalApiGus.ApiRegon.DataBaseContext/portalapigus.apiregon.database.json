@@ -1,5 +1,5 @@
 {
-  "UseGlobalDatabaseConnectionSettings": false,
+  "UseGlobalDatabaseConnectionSettings": true,
   "LastMigrateDateTime": null,
   "CacheLifeTime": 86400,
   "ConnectionStrings": {

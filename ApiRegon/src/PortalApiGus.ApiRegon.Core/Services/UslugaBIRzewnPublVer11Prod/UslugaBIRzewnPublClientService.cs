@@ -24,7 +24,7 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
     ///     Implementacja usługi BIR zewn Publ Ver 11 Prod
     ///     Implementation of the BIR service external Publ Ver 11 Prod
     /// </summary>
-    public class UslugaBIRzewnPublClientService : IUslugaBiRzewnPublClientService
+    public class UslugaBiRzewnPublClientService : IUslugaBiRzewnPublClientService
     {
         #region private readonly AppSettings _appSettings = new();
 
@@ -101,7 +101,7 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
         /// <param name="repository">
         ///     IDistributedCacheRepository repository
         /// </param>
-        public UslugaBIRzewnPublClientService(IDistributedCacheRepository repository)
+        public UslugaBiRzewnPublClientService(IDistributedCacheRepository repository)
         {
             _repository = repository;
         }
@@ -114,7 +114,7 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
         ///     Konstruktor
         ///     Constructor
         /// </summary>
-        public UslugaBIRzewnPublClientService()
+        public UslugaBiRzewnPublClientService()
         {
             _repository = new DistributedCacheRepository();
         }

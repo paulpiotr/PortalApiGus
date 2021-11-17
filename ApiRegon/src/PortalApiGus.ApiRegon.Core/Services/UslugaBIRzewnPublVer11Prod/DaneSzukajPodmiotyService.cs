@@ -17,7 +17,7 @@ using UslugaBIRzewnPublVer11Prod;
 
 namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 {
-    public class DaneSzukajPodmiotyService : UslugaBIRzewnPublClientService, IDaneSzukajPodmiotyService
+    public class DaneSzukajPodmiotyService : UslugaBiRzewnPublClientService, IDaneSzukajPodmiotyService
     {
         #region private readonly ICommonDistributedCache _commonDistributedCache
 
