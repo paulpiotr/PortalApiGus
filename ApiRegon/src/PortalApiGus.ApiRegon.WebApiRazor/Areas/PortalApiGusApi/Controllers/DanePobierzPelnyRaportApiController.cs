@@ -113,10 +113,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }
@@ -139,10 +139,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }
@@ -217,10 +217,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }
@@ -266,10 +266,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }
@@ -332,10 +332,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }
@@ -396,10 +396,10 @@ namespace PortalApiGus.ApiRegon.WebApiRazor.Areas.PortalApiGusApi.Controllers
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
                 return StatusCode(500, e);
             }

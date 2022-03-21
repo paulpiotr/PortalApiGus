@@ -105,10 +105,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
@@ -155,10 +155,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
@@ -199,10 +199,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
@@ -252,10 +252,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
@@ -501,10 +501,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
             }
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
@@ -737,10 +737,10 @@ namespace PortalApiGus.ApiRegon.Core.Services.UslugaBIRzewnPublVer11Prod
 
             catch (Exception e)
             {
-                _log4Net.Error(e);
+                _log4Net.Error(e.Message, e);
                 if (null != e.InnerException)
                 {
-                    _log4Net.Error(e.InnerException);
+                    _log4Net.Error(e.InnerException.Message, e.InnerException);
                 }
             }
 
